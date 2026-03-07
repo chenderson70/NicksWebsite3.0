@@ -1,78 +1,76 @@
 # Nick Parks Website
 
-## 🐺 Full-Stack Next.js Website for Nick Parks
+Marketing site for Nick Parks built with Next.js 14 App Router, TypeScript, Tailwind CSS, and Prisma.
 
-Motivational speaker, coach, entrepreneur, and author. This is the complete production website built with Next.js 14+, Tailwind CSS, Prisma, Stripe, and Auth.js.
+## Stack
 
-## Getting Started
+- Next.js 14 static export
+- React 18
+- Tailwind CSS 3
+- Prisma ORM
+- GitHub Actions for deployment
+- Git LFS for large video assets
+
+## Local Development
 
 ### Prerequisites
-- Node.js 18+
-- PostgreSQL database (Neon free tier recommended)
-- Stripe account (for payments)
 
-### 1. Install Dependencies
+- Node.js 18 or newer
+- npm
+
+### Install dependencies
+
 ```bash
 npm install
 ```
 
-### 2. Configure Environment
-Copy `.env.example` to `.env` and fill in your values:
-```bash
-cp .env.example .env
-```
+### Configure environment
 
-### 3. Set Up Database
-```bash
-npx prisma generate
-npx prisma db push
-npx prisma db seed
-```
+Create `.env` from `.env.example` and fill in the values your local setup needs.
 
-### 4. Run Development Server
+### Run the app
+
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+By default the app runs on `http://localhost:3000`, or the next available port if 3000 is already in use.
 
-### 5. Default Admin Login
-- **Email:** admin@nickparks.com
-- **Password:** ChangeMe123!
+### Build the static export
 
-## Tech Stack
-- **Framework:** Next.js 14 (App Router) + TypeScript
-- **Styling:** Tailwind CSS 3.4 + custom brand tokens
-- **Database:** PostgreSQL + Prisma ORM
-- **Auth:** Auth.js (NextAuth) v5 beta
-- **Payments:** Stripe Checkout
-- **Deployment:** Azure Static Web Apps (Free tier)
-- **CI/CD:** GitHub Actions
+```bash
+npm run build
+```
+
+The production export is generated in `out/`.
 
 ## Project Structure
-```
-app/                    # Next.js App Router pages
-  api/                  # API routes
-  admin/                # Admin dashboard
-  account/              # User account pages
-  shop/                 # E-commerce pages
-  blog/                 # Blog pages
-components/
-  home/                 # Homepage sections
-  layout/               # Navbar, Footer, CartDrawer
-  ui/                   # Reusable UI primitives
-lib/                    # Utilities, auth, db, stripe, constants
-prisma/                 # Schema and seed data
-public/images/          # Static assets
-```
 
-## Brand Design
-- **Colors:** Primary #1e6450 (dark green), Background #080808, Text #ffffff
-- **Fonts:** Oswald (headings), Montserrat (body)
-- **Style:** Dark, moody, athletic, high-contrast with heavy vignettes
+```text
+app/                  App Router pages
+components/           Shared site and UI components
+lib/                  Constants, utilities, blog helpers, and Prisma setup
+prisma/               Prisma schema and seed script
+public/images/        Site images and video assets
+```
 
 ## Deployment
-Push to `main` branch triggers automatic deployment via GitHub Actions to Azure Static Web Apps.
+
+The repository is configured to deploy to GitHub Pages through GitHub Actions.
+
+- Pushes to `main` trigger a production build.
+- The Pages workflow exports the site from Next.js and publishes the `out/` directory.
+- Production builds use the `/NicksWebsite3.0` base path required by GitHub Pages project sites.
+
+## Media Assets
+
+Large video files are tracked with Git LFS. Clone with Git LFS installed so production media assets are fetched correctly.
+
+## Repository
+
+- Repo: https://github.com/chenderson70/NicksWebsite3.0
+- Planned Pages URL: https://chenderson70.github.io/NicksWebsite3.0/
 
 ## License
-All rights reserved. © Nick Parks.
+
+All rights reserved.
