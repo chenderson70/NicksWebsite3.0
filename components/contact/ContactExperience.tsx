@@ -17,24 +17,48 @@ const inquiryTypes = [
 
 type InquiryType = (typeof inquiryTypes)[number];
 
+type SubmissionStatus = "idle" | "submitting" | "success" | "error";
+
+type InquiryForm = {
+  name: string;
+  email: string;
+  organization: string;
+  type: InquiryType;
+  eventDate: string;
+  message: string;
+};
+
+const initialForm: InquiryForm = {
+  name: "",
+  email: "",
+  organization: "",
+  type: inquiryTypes[0],
+  eventDate: "",
+  message: "",
+};
+
+function buildMailtoHref(form: InquiryForm) {
+  const subject = encodeURIComponent(`Inquiry for Nick Parks: ${form.type}`);
+  const body = encodeURIComponent(
+    [
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Organization: ${form.organization || "Not provided"}`,
+      `Inquiry Type: ${form.type}`,
+      `Preferred Date: ${form.eventDate || "Not provided"}`,
+      "",
+      form.message,
+    ].join("\n")
+  );
+
+  return `mailto:${SITE.email}?subject=${subject}&body=${body}`;
+}
+
 export default function ContactExperience() {
   const searchParams = useSearchParams();
-  const [form, setForm] = useState<{
-    name: string;
-    email: string;
-    organization: string;
-    type: InquiryType;
-    eventDate: string;
-    message: string;
-  }>({
-    name: "",
-    email: "",
-    organization: "",
-    type: inquiryTypes[0],
-    eventDate: "",
-    message: "",
-  });
-  const [status, setStatus] = useState<"idle" | "ready">("idle");
+  const [form, setForm] = useState<InquiryForm>(initialForm);
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const [feedback, setFeedback] = useState<string | null>(null);
 
   useEffect(() => {
     const requestedType = searchParams.get("type");
@@ -47,24 +71,50 @@ export default function ContactExperience() {
     }
   }, [searchParams]);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setStatus("submitting");
+    setFeedback(null);
 
-    const subject = encodeURIComponent(`Inquiry for Nick Parks: ${form.type}`);
-    const body = encodeURIComponent(
-      [
-        `Name: ${form.name}`,
-        `Email: ${form.email}`,
-        `Organization: ${form.organization || "Not provided"}`,
-        `Inquiry Type: ${form.type}`,
-        `Preferred Date: ${form.eventDate || "Not provided"}`,
-        "",
-        form.message,
-      ].join("\n")
-    );
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    setStatus("ready");
-    window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
+      const result = (await response.json().catch(() => null)) as
+        | { message?: string; fallbackMailto?: string }
+        | null;
+
+
+
+      if (response.status === 202 && result?.fallbackMailto) {
+        setStatus("success");
+        setFeedback(result.message || "Your email app should open with the inquiry prefilled.");
+        window.location.href = result.fallbackMailto;
+        return;
+      }
+      if (response.ok) {
+        setStatus("success");
+        setFeedback(result?.message || `Your inquiry was sent to ${SITE.email}.`);
+        setForm(initialForm);
+        return;
+      }
+
+
+
+      throw new Error(result?.message || "Unable to send the inquiry right now.");
+    } catch (error) {
+      console.error("Contact submit fallback", error);
+      setStatus("success");
+      setFeedback(
+        `Automatic delivery was unavailable, so your email app is opening instead. If it does not, email ${SITE.email} directly.`
+      );
+      window.location.href = buildMailtoHref(form);
+    }
   };
 
   return (
@@ -100,7 +150,7 @@ export default function ContactExperience() {
           <div className="space-y-3 text-sm leading-7 text-muted">
             <p>Best for keynote speaking, workshops, team development, and strategic mentorship.</p>
             <p>Include the date, city, audience size, and primary goal when you can.</p>
-            <p>Submitting the form opens your email client with the full brief prefilled.</p>
+            <p>When email delivery is configured, the form sends directly to your inbox. If not, it falls back to opening the visitor's email app with the brief prefilled.</p>
           </div>
         </div>
 
@@ -185,17 +235,24 @@ export default function ContactExperience() {
             />
 
             <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
-              {status === "ready" ? (
-                <p className="text-sm leading-7 text-muted sm:max-w-xl">
-                  Your email client should open with the message prefilled. If it does not, email {SITE.email} directly.
-                </p>
-              ) : (
-                <p className="text-sm leading-7 text-muted sm:max-w-xl">
-                  For the fastest reply, include the event date, city, audience size, and the result you want from the room.
-                </p>
-              )}
+              <p
+                className={`text-sm leading-7 sm:max-w-xl ${
+                  status === "error"
+                    ? "text-red-600"
+                    : status === "success"
+                      ? "text-primary"
+                      : "text-muted"
+                }`}
+              >
+                {feedback ||
+                  "For the fastest reply, include the event date, city, audience size, and the result you want from the room."}
+              </p>
 
-              <Button type="submit" className="w-full sm:min-w-[220px] sm:w-auto">
+              <Button
+                type="submit"
+                isLoading={status === "submitting"}
+                className="w-full sm:min-w-[220px] sm:w-auto"
+              >
                 Send Inquiry
               </Button>
             </div>

@@ -4,11 +4,11 @@ Marketing site for Nick Parks built with Next.js 14 App Router, TypeScript, Tail
 
 ## Stack
 
-- Next.js 14 static export
+- Next.js 14 App Router
 - React 18
 - Tailwind CSS 3
-- Prisma ORM
-- GitHub Actions for deployment
+- Prisma ORM for optional lead storage
+- Resend for booking-form email delivery
 - Git LFS for large video assets
 
 ## Local Development
@@ -28,6 +28,14 @@ npm install
 
 Create `.env` from `.env.example` and fill in the values your local setup needs.
 
+For the booking form to send real emails, set these values:
+
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `BOOKING_EMAIL_TO`
+
+A database is optional. If `DATABASE_URL` is missing or left as a placeholder, the contact form still sends email and simply skips lead persistence.
+
 ### Run the app
 
 ```bash
@@ -36,18 +44,22 @@ npm run dev
 
 By default the app runs on `http://localhost:3000`, or the next available port if 3000 is already in use.
 
-### Build the static export
+### Build the app
 
 ```bash
 npm run build
 ```
 
-The production export is generated in `out/`.
+This produces the standard Next.js production build used by Vercel.
+
+### Build the static export for GitHub Pages
+
+The repository still supports GitHub Pages as a static fallback. The Pages workflow sets `GITHUB_PAGES=true` automatically before running the build.
 
 ## Project Structure
 
 ```text
-app/                  App Router pages
+app/                  App Router pages and API routes
 components/           Shared site and UI components
 lib/                  Constants, utilities, blog helpers, and Prisma setup
 prisma/               Prisma schema and seed script
@@ -56,11 +68,29 @@ public/images/        Site images and video assets
 
 ## Deployment
 
-The repository is configured to deploy to GitHub Pages through GitHub Actions.
+### Recommended: Vercel Hobby + Resend Free
 
-- Pushes to `main` trigger a production build.
-- The Pages workflow exports the site from Next.js and publishes the `out/` directory.
-- Production builds use the `/NicksWebsite3.0` base path required by GitHub Pages project sites.
+This repo is now configured so Vercel can run the site as a full Next.js app with the booking form handled by `app/api/contact/route.ts`.
+
+Required Vercel environment variables:
+
+- `RESEND_API_KEY`
+- `EMAIL_FROM`
+- `BOOKING_EMAIL_TO=nparks@lonelesswolf.com`
+
+Optional Vercel environment variable:
+
+- `DATABASE_URL`
+
+If `DATABASE_URL` is omitted, form submissions still email Nick but will not be stored in Postgres.
+
+### Optional: GitHub Pages
+
+The repository also keeps the existing GitHub Pages workflow for static-only deployment.
+
+- Pushes to `main` trigger the Pages build.
+- The workflow exports the site from Next.js and publishes the `out/` directory.
+- Production Pages builds use the `/NicksWebsite3.0` base path required by GitHub project sites.
 
 ## Media Assets
 

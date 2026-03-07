@@ -14,9 +14,18 @@ export default function AdminLeadsPage() {
 
       <section className="py-12">
         <div className="w-[90%] max-w-6xl mx-auto">
-          <Link href="/admin" className="text-muted text-sm hover:text-primary mb-8 block">← Dashboard</Link>
+          <Link href="/admin" className="mb-8 block text-sm text-muted hover:text-primary">
+            Back to Dashboard
+          </Link>
 
-          <div className="border border-white/10 rounded-xl overflow-hidden">
+          <div className="mb-6 flex items-center gap-3 rounded-xl border border-primary/12 bg-primary/8 px-5 py-4">
+            <Badge variant="primary">Note</Badge>
+            <p className="text-sm leading-7 text-muted">
+              Leads can be emailed and stored when the site is running with a server-backed deployment.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border border-white/10">
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b border-white/10 bg-white/5">
@@ -30,7 +39,7 @@ export default function AdminLeadsPage() {
               <tbody>
                 <tr>
                   <td className="px-6 py-8 text-center text-muted" colSpan={5}>
-                    No leads yet. Leads will appear when visitors submit the contact form.
+                    No leads yet. Leads will appear here once server-backed submissions are enabled.
                   </td>
                 </tr>
               </tbody>
