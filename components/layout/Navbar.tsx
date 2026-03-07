@@ -110,7 +110,7 @@ export default function Navbar() {
                 <span className="block truncate font-heading text-lg uppercase tracking-[0.18em] text-foreground md:text-xl">
                   Nick Parks
                 </span>
-                <span className="block text-[11px] uppercase tracking-[0.28em] text-muted">
+                <span className="block text-xs uppercase tracking-[0.28em] text-muted">
                   {BRAND.name} | Athlete | Speaker | Coach
                 </span>
               </div>

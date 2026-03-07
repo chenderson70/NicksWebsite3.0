@@ -1,4 +1,4 @@
-﻿import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -21,6 +21,10 @@ const config: Config = {
       fontFamily: {
         heading: ["var(--font-sora)", "Sora", "sans-serif"],
         body: ["var(--font-manrope)", "Manrope", "sans-serif"],
+      },
+      fontSize: {
+        xs: ["0.82rem", { lineHeight: "1.35rem" }],
+        sm: ["0.96rem", { lineHeight: "1.6rem" }],
       },
       boxShadow: {
         card: "0 24px 60px -36px rgba(15, 24, 21, 0.28)",
@@ -45,4 +49,3 @@ const config: Config = {
 };
 
 export default config;
-

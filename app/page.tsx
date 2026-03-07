@@ -86,7 +86,7 @@ export default function HomePage() {
                 <LonelessWolfMark size={62} />
                 <div>
                   <p className="section-eyebrow">{BRAND.name}</p>
-                  <p className="mt-2 text-[11px] uppercase tracking-[0.28em] text-muted">
+                  <p className="mt-2 text-xs uppercase tracking-[0.28em] text-muted">
                     Professional Athlete | Coach | Speaker
                   </p>
                 </div>
@@ -135,9 +135,7 @@ export default function HomePage() {
                   />
                 </div>
 
-                <div className="brand-floating-note absolute right-4 top-4 max-w-[220px] rounded-[24px] border border-white/55 bg-white/88 px-4 py-4 text-sm leading-6 text-foreground shadow-card backdrop-blur">
-                  Nicholas Parks is the Loneless Wolf.
-                </div>
+
 
                 <div className="absolute bottom-4 left-4 max-w-[260px] rounded-[24px] bg-[#101311]/82 px-4 py-4 text-sm leading-6 text-white shadow-card">
                   {BRAND.statement}

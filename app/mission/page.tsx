@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import MissionRoadmap, { type MissionMilestone } from "@/components/site/MissionRoadmap";
+import MissionVideoSpotlight from "@/components/site/MissionVideoSpotlight";
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SectionHeading from "@/components/site/SectionHeading";
 import Transparent3DButton from "@/components/site/Transparent3DButton";
@@ -255,7 +256,7 @@ export default function MissionPage() {
                   {missionTags.map((tag, index) => (
                     <span
                       key={tag}
-                      className="mission-floating-note rounded-full border border-white/60 bg-[#101311]/82 px-4 py-2 font-heading text-[11px] uppercase tracking-[0.22em] text-white shadow-card"
+                      className="mission-floating-note rounded-full border border-white/60 bg-[#101311]/82 px-4 py-2 font-heading text-xs uppercase tracking-[0.22em] text-white shadow-card"
                       style={{ animationDelay: `${index * 1.25 + 0.35}s` }}
                     >
                       {tag}
@@ -269,53 +270,49 @@ export default function MissionPage() {
       </section>
 
       <section className="section-space pt-0">
-        <div className="site-container grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
-          <ScrollReveal contentClassName="mission-quote-panel ink-panel rounded-[34px] px-6 py-8 md:px-8 md:py-10">
-            <p className="section-eyebrow !text-white/72">Mission statement</p>
-            <blockquote className="mt-5 max-w-3xl font-heading text-2xl uppercase tracking-[-0.04em] text-white md:text-4xl md:leading-[1.05]">
-              "Loneless Wolf stands for you are not alone in being a working
-              optimist leaning on faith."
-            </blockquote>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/72">
-              The assignment is bigger than momentary inspiration. The goal is to
-              equip people to face fear, handle rejection, and keep moving because
-              preparation changes how pressure feels.
-            </p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+        <div className="mx-auto w-[min(1380px,calc(100%-1.25rem))] space-y-6 md:w-[min(1380px,calc(100%-3rem))]">
+          <ScrollReveal>
+            <MissionVideoSpotlight />
+          </ScrollReveal>
+
+          <ScrollReveal delayMs={120} contentClassName="mission-quote-panel ink-panel rounded-[34px] px-6 py-8 md:px-8 md:py-10 xl:px-10 xl:py-11">
+            <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
+              <div>
+                <p className="section-eyebrow !text-white/72">Mission statement</p>
+                <blockquote className="mt-5 max-w-5xl font-heading text-2xl uppercase tracking-[-0.04em] text-white md:text-4xl md:leading-[1.05] xl:text-[3.1rem]">
+                  "Loneless Wolf stands for you are not alone in being a working
+                  optimist leaning on faith."
+                </blockquote>
+                <p className="mt-5 max-w-3xl text-base leading-8 text-white/72 md:text-lg">
+                  The assignment is bigger than momentary inspiration. The goal is to
+                  equip people to face fear, handle rejection, and keep moving because
+                  preparation changes how pressure feels.
+                </p>
+              </div>
+
+              <div className="rounded-[26px] border border-white/12 bg-white/8 px-5 py-5 backdrop-blur md:px-6 md:py-6">
+                <p className="font-heading text-sm uppercase tracking-[0.22em] text-white/88">
+                  What the mission demands
+                </p>
+                <p className="mt-4 text-base leading-8 text-white/76">
+                  This is not built for momentary hype. It is built for pressure, response,
+                  discipline, and the kind of preparation that still works when the room gets hard.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-3 md:grid-cols-3">
               {operatingPrinciples.map((principle) => (
                 <div
                   key={principle.title}
-                  className="rounded-[24px] border border-white/10 bg-white/8 px-4 py-4 backdrop-blur"
+                  className="rounded-[24px] border border-white/10 bg-white/8 px-4 py-4 backdrop-blur md:px-5 md:py-5"
                 >
                   <p className="font-heading text-xs uppercase tracking-[0.22em] text-white">
                     {principle.title}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-white/72">{principle.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-white/72">{principle.description}</p>
                 </div>
               ))}
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal
-            delayMs={120}
-            contentClassName="mission-video-shell surface-card overflow-hidden p-4 md:p-5"
-          >
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] bg-[#d8e5de]">
-              <video
-                src={publicAsset("/images/NickvidDunk.MOV")}
-                controls
-                playsInline
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#101311]/78 via-[#101311]/14 to-transparent px-5 pb-5 pt-16">
-                <p className="font-heading text-xs uppercase tracking-[0.26em] text-white/72">
-                  Pressure in motion
-                </p>
-                <p className="mt-2 max-w-xl text-sm leading-6 text-white">
-                  The message works on stage because it was built in training, recovery,
-                  competition, and transition first.
-                </p>
-              </div>
             </div>
           </ScrollReveal>
         </div>
@@ -338,18 +335,18 @@ export default function MissionPage() {
                 className="h-full"
                 contentClassName="mission-value-card surface-card h-full px-6 py-6"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
+                <div className="flex flex-col gap-4">
+                  <div className="text-center">
                     <p className="section-eyebrow">{value.index}</p>
                     <h2 className="mt-4 font-heading text-3xl uppercase tracking-[-0.04em] text-foreground">
                       {value.name}
                     </h2>
                   </div>
-                  <span className="rounded-full border border-primary/18 bg-primary/8 px-3 py-1 font-heading text-[11px] uppercase tracking-[0.24em] text-primary">
+                  <span className="inline-flex min-h-[60px] w-full items-center justify-center rounded-full border border-primary/18 bg-primary/8 px-5 py-2.5 text-center font-heading text-xs uppercase tracking-[0.18em] leading-5 text-primary md:min-h-[64px]">
                     {value.summary}
                   </span>
                 </div>
-                <p className="mt-5 text-sm leading-7 text-muted">{value.description}</p>
+                <p className="mt-6 text-sm leading-7 text-muted">{value.description}</p>
               </ScrollReveal>
             ))}
           </div>

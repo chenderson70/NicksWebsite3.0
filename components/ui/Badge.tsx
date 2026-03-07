@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface BadgeProps {
@@ -24,7 +24,7 @@ export default function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-3 py-1 text-[11px] font-heading uppercase tracking-[0.22em]",
+        "inline-flex items-center rounded-full px-3 py-1 text-xs font-heading uppercase tracking-[0.22em]",
         variants[variant],
         className
       )}
