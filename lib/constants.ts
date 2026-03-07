@@ -1,3 +1,10 @@
+import { publicAsset } from "@/lib/utils";
+
+const defaultSiteUrl =
+  process.env.GITHUB_PAGES === "true"
+    ? "https://chenderson70.github.io/NicksWebsite3.0"
+    : "http://localhost:3000";
+
 export const BRAND = {
   name: "Loneless Wolf",
   statement: "You are not alone in being a working optimist leaning on faith.",
@@ -11,8 +18,8 @@ export const SITE = {
   title: "Nick Parks | Loneless Wolf | Professional Athlete, Mental Performance Coach & Speaker",
   description:
     "Loneless Wolf - You are not alone. Professional athlete, mental performance and culture enhancer coach, and mentor. Fear is not an option when you're prepared.",
-  url: process.env.APP_URL || "http://localhost:3000",
-  ogImage: "/images/LoneWolf.JPG",
+  url: process.env.APP_URL || defaultSiteUrl,
+  ogImage: publicAsset("/images/LoneWolf.JPG"),
   email: "nparks@lonelesswolf.com",
   phone: "678-468-1604",
   location: "Atlanta, Georgia",
@@ -79,24 +86,24 @@ export const SOCIAL_LINKS = [
 ] as const;
 
 export const CLIENTS = [
-  { name: "McDonald's", logo: "/images/logos/Mcdonals-Logo.png", logoScale: 1.15 },
-  { name: "Eric Thomas", logo: "/images/logos/ericthomas.webp", logoScale: 1.1 },
-  { name: "Montverde Academy", logo: "/images/logos/montverde.jpg", logoScale: 1.3 },
-  { name: "Hillgrove High School", logo: "/images/logos/hillgrove.jpg", logoScale: 1.16 },
-  { name: "Urban League of Greater Atlanta", logo: "/images/logos/Urbanleague.webp", logoScale: 1.18 },
-  { name: "House of Highlights", logo: "/images/logos/houseofhighlights.webp", logoScale: 1.12 },
-  { name: "Slamball", logo: "/images/logos/slamball.jpg", logoScale: 1.1 },
-  { name: "Cherokee County", logo: "/images/logos/cherokee.png", logoScale: 1.08 },
-  { name: "Purdue University", logo: "/images/logos/purdue.png", logoScale: 1.18 },
-  { name: "Word of Faith", logo: "/images/logos/wordoffaith.png", logoScale: 1.1 },
+  { name: "McDonald's", logo: publicAsset("/images/logos/Mcdonals-Logo.png"), logoScale: 1.15 },
+  { name: "Eric Thomas", logo: publicAsset("/images/logos/ericthomas.webp"), logoScale: 1.1 },
+  { name: "Montverde Academy", logo: publicAsset("/images/logos/montverde.jpg"), logoScale: 1.3 },
+  { name: "Hillgrove High School", logo: publicAsset("/images/logos/hillgrove.jpg"), logoScale: 1.16 },
+  { name: "Urban League of Greater Atlanta", logo: publicAsset("/images/logos/Urbanleague.webp"), logoScale: 1.18 },
+  { name: "House of Highlights", logo: publicAsset("/images/logos/houseofhighlights.webp"), logoScale: 1.12 },
+  { name: "Slamball", logo: publicAsset("/images/logos/slamball.jpg"), logoScale: 1.1 },
+  { name: "Cherokee County", logo: publicAsset("/images/logos/cherokee.png"), logoScale: 1.08 },
+  { name: "Purdue University", logo: publicAsset("/images/logos/purdue.png"), logoScale: 1.18 },
+  { name: "Word of Faith", logo: publicAsset("/images/logos/wordoffaith.png"), logoScale: 1.1 },
   {
     name: "Shaquille O'Neal Boys & Girls Club",
-    logo: "/images/logos/shaqboysandgirlsclub.png",
+    logo: publicAsset("/images/logos/shaqboysandgirlsclub.png"),
     logoScale: 1.08,
   },
   {
     name: "Warrick Dunn Family Foundation",
-    logo: "/images/logos/warrickdunncharity.jpg",
+    logo: publicAsset("/images/logos/warrickdunncharity.jpg"),
     logoScale: 1.14,
   },
 ] as const;

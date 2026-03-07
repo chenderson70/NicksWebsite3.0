@@ -5,6 +5,7 @@ import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import { SITE } from "@/lib/constants";
+import { publicAsset } from "@/lib/utils";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -21,20 +22,20 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: SITE.title,
   description: SITE.description,
-  metadataBase: new URL(process.env.APP_URL || "http://localhost:3000"),
+  metadataBase: new URL(SITE.url),
   openGraph: {
     title: SITE.title,
     description: SITE.description,
-    url: process.env.APP_URL || "http://localhost:3000",
+    url: SITE.url,
     siteName: SITE.name,
-    images: [{ url: "/images/NickHomepage.JPG", width: 1200, height: 630 }],
+    images: [{ url: publicAsset("/images/NickHomepage.JPG"), width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: SITE.title,
     description: SITE.description,
-    images: ["/images/NickHomepage.JPG"],
+    images: [publicAsset("/images/NickHomepage.JPG")],
   },
 };
 

@@ -5,6 +5,7 @@ import MissionRoadmap, { type MissionMilestone } from "@/components/site/Mission
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SectionHeading from "@/components/site/SectionHeading";
 import Transparent3DButton from "@/components/site/Transparent3DButton";
+import { publicAsset } from "@/lib/utils";
 
 const coreValues = [
   {
@@ -232,7 +233,7 @@ export default function MissionPage() {
               <div className="surface-panel relative overflow-hidden p-3 md:p-4">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[24px]">
                   <Image
-                    src="/images/NickServe.jpg"
+                    src={publicAsset("/images/NickServe.jpg")}
                     alt="Nick Parks mission portrait"
                     fill
                     priority
@@ -301,7 +302,7 @@ export default function MissionPage() {
           >
             <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] bg-[#d8e5de]">
               <video
-                src="/images/NickvidDunk.MOV"
+                src={publicAsset("/images/NickvidDunk.MOV")}
                 controls
                 playsInline
                 className="h-full w-full object-cover"

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, publicAsset } from "@/lib/utils";
 
 interface LonelessWolfMarkProps {
   className?: string;
@@ -17,7 +17,7 @@ export default function LonelessWolfMark({
       <span className="wolf-mark__halo" aria-hidden="true" />
       <span className="wolf-mark__frame">
         <Image
-          src="/images/LoneWolf.JPG"
+          src={publicAsset("/images/LoneWolf.JPG")}
           alt={alt}
           fill
           sizes={`${size}px`}

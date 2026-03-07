@@ -9,6 +9,7 @@ import LonelessWolfBanner from "@/components/site/LonelessWolfBanner";
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SectionHeading from "@/components/site/SectionHeading";
 import { CLIENTS } from "@/lib/constants";
+import { publicAsset } from "@/lib/utils";
 
 const testimonials = [
   {
@@ -46,10 +47,10 @@ const testimonials = [
 ] as const;
 
 const trustedPhotos = [
-  { src: "/images/NickET.jpg", alt: "Nick Parks with Eric Thomas" },
-  { src: "/images/NickWarrick.JPG", alt: "Nick Parks with Warrick Dunn" },
-  { src: "/images/NickHouseofHighlight.jpg", alt: "Nick Parks at House of Highlights" },
-  { src: "/images/NickKarl.JPEG", alt: "Nick Parks with leadership partners" },
+  { src: publicAsset("/images/NickET.jpg"), alt: "Nick Parks with Eric Thomas" },
+  { src: publicAsset("/images/NickWarrick.JPG"), alt: "Nick Parks with Warrick Dunn" },
+  { src: publicAsset("/images/NickHouseofHighlight.jpg"), alt: "Nick Parks at House of Highlights" },
+  { src: publicAsset("/images/NickKarl.JPEG"), alt: "Nick Parks with leadership partners" },
 ] as const;
 
 export default function TestimonialsPage() {

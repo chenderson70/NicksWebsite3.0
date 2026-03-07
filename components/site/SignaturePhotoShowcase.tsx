@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { publicAsset } from "@/lib/utils";
 
 const visualPillars = ["Preparation", "Resilience", "Conviction"];
 
@@ -49,7 +50,7 @@ export default function SignaturePhotoShowcase() {
       <div className="signature-visual__card">
         <div className="signature-visual__photo">
           <Image
-            src="/images/NickET.jpg"
+            src={publicAsset("/images/NickET.jpg")}
             alt="Nick Parks with Eric Thomas"
             fill
             className="signature-visual__image object-cover object-[center_14%]"

@@ -6,6 +6,7 @@ import LonelessWolfBanner from "@/components/site/LonelessWolfBanner";
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SectionHeading from "@/components/site/SectionHeading";
 import { BRAND } from "@/lib/constants";
+import { publicAsset } from "@/lib/utils";
 
 const disclosures = [
   {
@@ -73,7 +74,7 @@ export default function AboutPage() {
             <div className="surface-panel p-3 md:p-4">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[24px]">
                 <Image
-                  src="/images/aboutsectionphoto.PNG"
+                  src={publicAsset("/images/aboutsectionphoto.PNG")}
                   alt="Nick Parks portrait"
                   fill
                   className="object-cover"

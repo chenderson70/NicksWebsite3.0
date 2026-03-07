@@ -1,4 +1,6 @@
-﻿export const BLOG_POSTS = [
+﻿import { publicAsset } from "@/lib/utils";
+
+export const BLOG_POSTS = [
   {
     slug: "why-adversity-is-your-greatest-teacher",
     title: "Why Adversity Is Your Greatest Teacher",
@@ -7,7 +9,7 @@
     category: "Mindset",
     date: "2025-01-15",
     readTime: "5 min read",
-    image: "/images/NickTalking.jpg",
+    image: publicAsset("/images/NickTalking.jpg"),
     body: [
       "Every great comeback story starts with a setback. Most people want the confidence of the comeback without the cost of the valley, but the valley is where perspective gets refined.",
       "Adversity reveals where our identity is too fragile, where our habits are too shallow, and where our preparation still depends on ideal conditions. That is uncomfortable, but it is useful.",
@@ -23,7 +25,7 @@
     category: "Leadership",
     date: "2025-01-08",
     readTime: "6 min read",
-    image: "/images/NickServe.jpg",
+    image: publicAsset("/images/NickServe.jpg"),
     body: [
       "Talent can create highlights, but standards create consistency. Teams do not stay strong because everyone feels inspired at the same time. They stay strong because the expectations are clear and the trust is earned.",
       "The healthiest teams do not confuse chemistry with avoidance. They can tell the truth, challenge each other directly, and keep the mission larger than ego.",
@@ -39,7 +41,7 @@
     category: "Athletics",
     date: "2025-01-01",
     readTime: "4 min read",
-    image: "/images/NickHomepage.JPG",
+    image: publicAsset("/images/NickHomepage.JPG"),
     body: [
       "Morning habits matter because they shape attention before the day starts making demands. The first hour creates the tone for how you handle pressure later.",
       "Simple habits outperform dramatic systems. Wake up with intention, move your body, get quiet long enough to think, and define the non-negotiable work before the noise starts.",
@@ -55,7 +57,7 @@
     category: "Leadership",
     date: "2024-12-18",
     readTime: "6 min read",
-    image: "/images/NickWarrick.JPG",
+    image: publicAsset("/images/NickWarrick.JPG"),
     body: [
       "Competitive environments expose whether leadership is performative or real. Under pressure, leaders either reduce confusion or add to it.",
       "The best leaders communicate early, stay emotionally stable, and keep everyone connected to the mission when tension rises. They do not waste energy trying to appear strong. They make the room more usable.",
@@ -71,7 +73,7 @@
     category: "Mindset",
     date: "2024-12-11",
     readTime: "5 min read",
-    image: "/images/NickHouseofHighlight.jpg",
+    image: publicAsset("/images/NickHouseofHighlight.jpg"),
     body: [
       "People often underestimate the power of repeated presence. Showing up does not feel dramatic, which is exactly why many people abandon it too early.",
       "Momentum is usually built through ordinary repetitions: another workout, another rep, another difficult conversation, another day of staying aligned to the work.",
@@ -87,7 +89,7 @@
     category: "Faith",
     date: "2024-12-04",
     readTime: "7 min read",
-    image: "/images/NickET.jpg",
+    image: publicAsset("/images/NickET.jpg"),
     body: [
       "Pain can easily become identity if it is left unexamined. Purpose usually begins when you decide the wound will not have the final word on who you are.",
       "Reflection matters. Ask what the pain exposed, what it refined, and what responsibility it gave you toward other people walking through something similar.",

@@ -11,6 +11,7 @@ import SectionHeading from "@/components/site/SectionHeading";
 import SignaturePhotoShowcase from "@/components/site/SignaturePhotoShowcase";
 import Transparent3DButton from "@/components/site/Transparent3DButton";
 import { BRAND, CLIENTS, HOMEPAGE_STATS } from "@/lib/constants";
+import { publicAsset } from "@/lib/utils";
 
 const quickLinks = [
   {
@@ -125,7 +126,7 @@ export default function HomePage() {
               <div className="surface-panel relative overflow-hidden p-3 md:p-4">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[24px]">
                   <Image
-                    src="/images/NickHomepage.JPG"
+                    src={publicAsset("/images/NickHomepage.JPG")}
                     alt="Nick Parks portrait"
                     fill
                     priority

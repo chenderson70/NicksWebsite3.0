@@ -7,6 +7,7 @@ import ScrollReveal from "@/components/site/ScrollReveal";
 import SectionHeading from "@/components/site/SectionHeading";
 import Transparent3DButton from "@/components/site/Transparent3DButton";
 import { CLIENTS } from "@/lib/constants";
+import { publicAsset } from "@/lib/utils";
 
 const serviceOptions = [
   {
@@ -119,7 +120,7 @@ export default function ServicesPage() {
           <div className="surface-panel overflow-hidden p-3 md:p-4">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[24px]">
               <Image
-                src="/images/NickTalking.jpg"
+                src={publicAsset("/images/NickTalking.jpg")}
                 alt="Nick Parks speaking to a group"
                 fill
                 priority
