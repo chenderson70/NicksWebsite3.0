@@ -2,3 +2,4 @@
 *.mov filter=lfs diff=lfs merge=lfs -text
 *.MOV filter=lfs diff=lfs merge=lfs -text
 public/images/trackvid.mp4 -filter -diff -merge -text
+public/images/NickvidDunk.MOV -filter -diff -merge -text
