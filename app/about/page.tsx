@@ -91,6 +91,23 @@ export default function AboutPage() {
                   View Services
                 </Link>
               </div>
+
+              <div className="mt-10 max-w-xl space-y-5">
+                <p className="font-heading text-xs uppercase tracking-[0.28em] text-primary">
+                  Why The Message Lands
+                </p>
+                <blockquote className="max-w-lg font-heading text-2xl uppercase tracking-[-0.04em] text-ink md:text-[2rem] md:leading-[1.02]">
+                  "The question should never be how long will it take, but rather what will it take."
+                </blockquote>
+                <div className="space-y-4 text-lg leading-8 text-ink/72">
+                  <p>
+                    Loneless Wolf was built from recovery, reinvention, leadership, and high-level competition. The voice behind the brand was not formed in theory. It was formed through hard pivots, pressure-filled seasons, and the kind of preparation that has to hold when the room gets quiet.
+                  </p>
+                  <p>
+                    That is why the work speaks to athletes, coaches, teams, and leaders who need more than motivation. They need language, standards, and a mindset that can carry real responsibility before the spotlight shows up.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="surface-panel p-3 md:p-4">
@@ -235,4 +252,5 @@ export default function AboutPage() {
     </>
   );
 }
+
 

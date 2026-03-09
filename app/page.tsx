@@ -175,14 +175,25 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delayMs={120} contentClassName="ink-panel flex h-full flex-col justify-between rounded-[32px] px-6 py-8 md:px-8 md:py-10">
+            <ScrollReveal delayMs={120} contentClassName="ink-panel flex h-full flex-col rounded-[32px] px-6 py-8 md:px-8 md:py-10">
               <div>
                 <p className="section-eyebrow !text-white/70">Mindset</p>
                 <p className="mt-6 font-heading text-3xl uppercase tracking-[-0.04em] text-white md:text-5xl">
                   {homepageQuote}
                 </p>
               </div>
-              <div className="mt-8 h-px w-24 bg-primary/70" />
+              <div className="mt-10 flex flex-1 items-end">
+                <div className="w-full">
+                  <div className="homepage-brand-marquee" aria-hidden="true">
+                    <div className="homepage-brand-marquee__track">
+                      <span>Loneless Wolf</span>
+                      <span>Loneless Wolf</span>
+                      <span>Loneless Wolf</span>
+                    </div>
+                  </div>
+                  <div className="mt-5 h-px w-24 bg-primary/70" />
+                </div>
+              </div>
             </ScrollReveal>
           </div>
         </div>
@@ -306,4 +317,5 @@ export default function HomePage() {
     </>
   );
 }
+
 
