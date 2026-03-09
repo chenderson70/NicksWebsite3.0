@@ -1,5 +1,6 @@
 import { LeadType } from "@prisma/client";
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 import { z } from "zod";
 import { SITE } from "@/lib/constants";
 import { db } from "@/lib/db";
@@ -140,14 +141,90 @@ async function saveLead(inquiry: Inquiry) {
   }
 }
 
-async function sendBookingEmail(inquiry: Inquiry, targetEmail: string) {
+type EmailSendResult =
+  | {
+      sent: true;
+      provider: "smtp" | "resend";
+    }
+  | {
+      sent: false;
+      reason: "config" | "delivery";
+    };
+
+async function sendBookingEmailViaSmtp(
+  inquiry: Inquiry,
+  targetEmail: string
+): Promise<EmailSendResult> {
+  const host = process.env.SMTP_HOST?.trim();
+  const portValue = process.env.SMTP_PORT?.trim();
+  const user = process.env.SMTP_USER?.trim();
+  const password = process.env.SMTP_PASSWORD?.trim();
+  const from = process.env.EMAIL_FROM?.trim();
+
+  if (!host || !portValue || !user || !password || !from) {
+    return {
+      sent: false,
+      reason: "config",
+    };
+  }
+
+  const port = Number.parseInt(portValue, 10);
+
+  if (Number.isNaN(port)) {
+    return {
+      sent: false,
+      reason: "config",
+    };
+  }
+
+  const secure = process.env.SMTP_SECURE?.trim()
+    ? process.env.SMTP_SECURE === "true"
+    : port === 465;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: {
+        user,
+        pass: password,
+      },
+    });
+
+    await transporter.sendMail({
+      from,
+      to: targetEmail,
+      replyTo: inquiry.email,
+      subject: `New booking inquiry: ${inquiry.type} - ${inquiry.name}`,
+      html: buildHtmlEmail(inquiry),
+      text: buildTextEmail(inquiry),
+    });
+
+    return {
+      sent: true,
+      provider: "smtp",
+    };
+  } catch (error) {
+    console.error("SMTP send failed", error);
+    return {
+      sent: false,
+      reason: "delivery",
+    };
+  }
+}
+
+async function sendBookingEmailViaResend(
+  inquiry: Inquiry,
+  targetEmail: string
+): Promise<EmailSendResult> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
 
   if (!apiKey || !from) {
     return {
-      sent: false as const,
-      reason: "config" as const,
+      sent: false,
+      reason: "config",
     };
   }
 
@@ -173,21 +250,51 @@ async function sendBookingEmail(inquiry: Inquiry, targetEmail: string) {
       const errorBody = await response.text();
       console.error("Resend send failed", errorBody);
       return {
-        sent: false as const,
-        reason: "delivery" as const,
+        sent: false,
+        reason: "delivery",
       };
     }
 
     return {
-      sent: true as const,
+      sent: true,
+      provider: "resend",
     };
   } catch (error) {
     console.error("Resend request failed", error);
     return {
-      sent: false as const,
-      reason: "delivery" as const,
+      sent: false,
+      reason: "delivery",
     };
   }
+}
+
+async function sendBookingEmail(
+  inquiry: Inquiry,
+  targetEmail: string
+): Promise<EmailSendResult> {
+  const smtpResult = await sendBookingEmailViaSmtp(inquiry, targetEmail);
+
+  if (smtpResult.sent) {
+    return smtpResult;
+  }
+
+  const resendResult = await sendBookingEmailViaResend(inquiry, targetEmail);
+
+  if (resendResult.sent) {
+    return resendResult;
+  }
+
+  if (smtpResult.reason === "delivery" || resendResult.reason === "delivery") {
+    return {
+      sent: false,
+      reason: "delivery",
+    };
+  }
+
+  return {
+    sent: false,
+    reason: "config",
+  };
 }
 
 export async function POST(request: Request) {

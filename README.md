@@ -8,7 +8,7 @@ Marketing site for Nick Parks built with Next.js 14 App Router, TypeScript, Tail
 - React 18
 - Tailwind CSS 3
 - Prisma ORM for optional lead storage
-- Resend for booking-form email delivery
+- SMTP or Resend for booking-form email delivery
 - Git LFS for large video assets
 
 ## Local Development
@@ -30,9 +30,17 @@ Create `.env` from `.env.example` and fill in the values your local setup needs.
 
 For the booking form to send real emails, set these values:
 
-- `RESEND_API_KEY`
 - `EMAIL_FROM`
 - `BOOKING_EMAIL_TO`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USER`
+- `SMTP_PASSWORD`
+
+Optional fallback:
+
+- `RESEND_API_KEY`
 
 A database is optional. If `DATABASE_URL` is missing or left as a placeholder, the contact form still sends email and simply skips lead persistence.
 
@@ -68,17 +76,23 @@ public/images/        Site images and video assets
 
 ## Deployment
 
-### Recommended: Vercel Hobby + Resend Free
+### Recommended: Vercel Hobby + Your Mail Provider SMTP
 
 This repo is now configured so Vercel can run the site as a full Next.js app with the booking form handled by `app/api/contact/route.ts`.
 
 Required Vercel environment variables:
 
-- `RESEND_API_KEY`
 - `EMAIL_FROM`
-- `BOOKING_EMAIL_TO=nparks@lonelesswolf.com`
+- `BOOKING_EMAIL_TO=nicholasparks14@gmail.com`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USER`
+- `SMTP_PASSWORD`
 
 Optional Vercel environment variable:
+
+- `RESEND_API_KEY`
 
 - `DATABASE_URL`
 
