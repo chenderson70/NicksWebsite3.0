@@ -283,7 +283,7 @@ export default function ServicesPage() {
   return (
     <>
       <section className="page-hero overflow-hidden">
-        <div className="site-container grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div className="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div className="max-w-3xl">
             <p className="section-eyebrow">Loneless Wolf services for athletes, leaders, and organizations</p>
             <h1 className="mt-6 font-heading text-5xl uppercase tracking-[-0.06em] text-foreground md:text-7xl">
@@ -313,8 +313,8 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <div className="surface-panel overflow-hidden p-3 md:p-4">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[24px]">
+          <div className="surface-panel self-start overflow-hidden p-3 md:p-4">
+            <div className="relative min-h-[320px] overflow-hidden rounded-[24px] md:min-h-[420px] lg:min-h-[520px]">
               <Image
                 src={publicAsset("/images/NickTalking.jpg")}
                 alt="Nick Parks speaking to a group"
@@ -323,12 +323,7 @@ export default function ServicesPage() {
                 className="object-cover"
                 sizes="(min-width: 1024px) 46vw, 92vw"
               />
-              <div className="absolute inset-x-5 bottom-5 rounded-[22px] border border-white/35 bg-black/55 px-5 py-4 text-white backdrop-blur">
-                <p className="font-heading text-xs uppercase tracking-[0.28em] text-white/72">Loneless Wolf</p>
-                <p className="mt-2 text-base leading-7 text-white/88">
-                  Speaking, coaching, and development lanes designed to move people from overlooked to elite.
-                </p>
-              </div>
+
             </div>
           </div>
         </div>
@@ -426,3 +421,4 @@ export default function ServicesPage() {
     </>
   );
 }
+
