@@ -17,7 +17,7 @@ const inquiryTypes = [
 
 type InquiryType = (typeof inquiryTypes)[number];
 
-type SubmissionStatus = "idle" | "submitting" | "success" | "error";
+type SubmissionStatus = "idle" | "submitting" | "success" | "error" | "fallback";
 
 type InquiryForm = {
   name: string;
@@ -59,6 +59,7 @@ export default function ContactExperience() {
   const [form, setForm] = useState<InquiryForm>(initialForm);
   const [status, setStatus] = useState<SubmissionStatus>("idle");
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [fallbackMailto, setFallbackMailto] = useState<string | null>(null);
 
   useEffect(() => {
     const requestedType = searchParams.get("type");
@@ -75,6 +76,7 @@ export default function ContactExperience() {
     event.preventDefault();
     setStatus("submitting");
     setFeedback(null);
+    setFallbackMailto(null);
 
     try {
       const response = await fetch("/api/contact", {
@@ -92,14 +94,19 @@ export default function ContactExperience() {
 
 
       if (response.status === 202 && result?.fallbackMailto) {
-        setStatus("success");
-        setFeedback(result.message || "Your email app should open with the inquiry prefilled.");
-        window.location.href = result.fallbackMailto;
+        setStatus("fallback");
+        setFallbackMailto(result.fallbackMailto);
+        setFeedback(
+          result.message ||
+            `Automatic delivery is unavailable right now. Use the email fallback below to send this inquiry to ${SITE.email}.`
+        );
         return;
       }
+
       if (response.ok) {
         setStatus("success");
         setFeedback(result?.message || `Your inquiry was sent to ${SITE.email}.`);
+        setFallbackMailto(null);
         setForm(initialForm);
         return;
       }
@@ -109,11 +116,11 @@ export default function ContactExperience() {
       throw new Error(result?.message || "Unable to send the inquiry right now.");
     } catch (error) {
       console.error("Contact submit fallback", error);
-      setStatus("success");
+      setStatus("fallback");
+      setFallbackMailto(buildMailtoHref(form));
       setFeedback(
-        `Automatic delivery was unavailable, so your email app is opening instead. If it does not, email ${SITE.email} directly.`
+        `Automatic delivery was unavailable. Use the email fallback below, or email ${SITE.email} directly.`
       );
-      window.location.href = buildMailtoHref(form);
     }
   };
 
@@ -150,7 +157,7 @@ export default function ContactExperience() {
           <div className="space-y-3 text-sm leading-7 text-muted">
             <p>Best for keynote speaking, workshops, team development, and strategic mentorship.</p>
             <p>Include the date, city, audience size, and primary goal when you can.</p>
-            <p>When email delivery is configured, the form sends directly to your inbox. If not, it falls back to opening the visitor's email app with the brief prefilled.</p>
+            <p>When email delivery is configured, the form sends directly to your inbox. If not, the form offers a prefilled fallback email link instead.</p>
           </div>
         </div>
 
@@ -241,6 +248,8 @@ export default function ContactExperience() {
                     ? "text-red-600"
                     : status === "success"
                       ? "text-primary"
+                      : status === "fallback"
+                        ? "text-amber-700"
                       : "text-muted"
                 }`}
               >
@@ -256,6 +265,21 @@ export default function ContactExperience() {
                 Send Inquiry
               </Button>
             </div>
+
+            {fallbackMailto ? (
+              <div className="rounded-[1.5rem] border border-amber-300/80 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-900">
+                <p>
+                  Resend is not configured or the delivery request failed, so the form could not send server-side.
+                  Use the link below if you want to send the prefilled email manually.
+                </p>
+                <a
+                  href={fallbackMailto}
+                  className="mt-3 inline-flex items-center text-sm font-semibold uppercase tracking-[0.18em] text-amber-900 underline decoration-amber-500 underline-offset-4 transition hover:text-amber-700"
+                >
+                  Open email fallback
+                </a>
+              </div>
+            ) : null}
           </form>
         </div>
       </div>

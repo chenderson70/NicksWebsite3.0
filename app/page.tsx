@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import ClientLogoGrid from "@/components/site/ClientLogoGrid";
-import ClientLogoMarquee from "@/components/site/ClientLogoMarquee";
 import DisclosureCard from "@/components/site/DisclosureCard";
 import LonelessWolfBanner from "@/components/site/LonelessWolfBanner";
 import LonelessWolfMark from "@/components/site/LonelessWolfMark";
@@ -75,6 +74,14 @@ const heroSignals = [
   "Leaning on faith.",
 ] as const;
 
+const homepageProfile = [
+  "Professional Athlete, Mental Performance Coach, and Culture Enhancer - Nicholas Parks is the Loneless Wolf.",
+  "A Professional Athlete in Slamball, former Professional Track Athlete, and mental development coach for high school, college, and transfer student-athletes. Nick holds a BS in Organizational Leadership from Purdue University and specializes in empowering athletes and leaders to reach their full potential - both on and off the field.",
+  "His D-1 coaching experience at Purdue resulted in Big Ten Champions and NCAA finalists.",
+] as const;
+
+const homepageQuote = "The question should never be how long will it take, but rather what will it take.";
+
 export default function HomePage() {
   return (
     <>
@@ -135,8 +142,6 @@ export default function HomePage() {
                   />
                 </div>
 
-
-
                 <div className="absolute bottom-4 left-4 max-w-[260px] rounded-[24px] bg-[#101311]/82 px-4 py-4 text-sm leading-6 text-white shadow-card">
                   {BRAND.statement}
                 </div>
@@ -149,13 +154,36 @@ export default function HomePage() {
       <section className="pb-16 md:pb-24">
         <div className="site-container">
           <div className="ink-panel overflow-hidden rounded-[40px] border border-white/10">
-            <ClientLogoMarquee
-              clients={CLIENTS}
-              title="Some of Nick's collaborations include:"
-              theme="dark"
-              className="border-b border-white/10 px-6 py-8 md:px-8"
-            />
             <LonelessWolfStatement className="px-6 py-14 md:px-8 md:py-16" />
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-16 md:pb-24">
+        <div className="site-container">
+          <div className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr] lg:items-stretch">
+            <ScrollReveal contentClassName="surface-card h-full px-6 py-8 md:px-8">
+              <SectionHeading
+                eyebrow="Nicholas Parks"
+                title={<>Professional athlete. Mental performance coach. Culture enhancer.</>}
+                description="Nicholas Parks is the Loneless Wolf. The work is built to help athletes and leaders reach their full potential on and off the field."
+              />
+              <div className="mt-6 space-y-4 text-base leading-8 text-muted md:text-lg">
+                {homepageProfile.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delayMs={120} contentClassName="ink-panel flex h-full flex-col justify-between rounded-[32px] px-6 py-8 md:px-8 md:py-10">
+              <div>
+                <p className="section-eyebrow !text-white/70">Mindset</p>
+                <p className="mt-6 font-heading text-3xl uppercase tracking-[-0.04em] text-white md:text-5xl">
+                  {homepageQuote}
+                </p>
+              </div>
+              <div className="mt-8 h-px w-24 bg-primary/70" />
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -278,3 +306,4 @@ export default function HomePage() {
     </>
   );
 }
+

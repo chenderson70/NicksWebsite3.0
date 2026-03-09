@@ -9,90 +9,275 @@ import Transparent3DButton from "@/components/site/Transparent3DButton";
 import { CLIENTS } from "@/lib/constants";
 import { publicAsset } from "@/lib/utils";
 
-const serviceOptions = [
+type ServiceTier = {
+  label: string;
+  tier: string;
+  title: string;
+  subtitle: string;
+  bestFor: string;
+  summary: string;
+  focusAreas: string[];
+  includes: string[];
+  outcome?: string;
+  contactHref: string;
+  featured?: boolean;
+};
+
+const athleteTiers: ServiceTier[] = [
   {
-    eyebrow: "Speaking",
-    title: "Keynotes",
+    tier: "Foundation",
+    label: "01",
+    title: "The Impossible Blueprint",
+    subtitle: "Group-Based Program",
+    bestFor: "Schools, teams, and athletic departments",
     summary:
-      "Direct messages for conferences, schools, teams, and leadership rooms that need urgency with practical weight.",
-    anchor: "keynotes",
-    contactHref: "/contact?type=Keynote%20speaking",
-    detail:
-      "Keynotes are built for rooms that need a clear standard, stronger response habits, and a message that stays with people after the event ends.",
-    bestFor: [
-      "Conferences, schools, teams, and leadership summits",
-      "Rooms that need conviction, resilience, and practical application",
-      "Opening or closing sessions where energy and clarity both matter",
+      "A transformative group curriculum that builds a professional athlete standard even in high school. Athletes leave thinking like pros before they become pros.",
+    focusAreas: [
+      "Mindset for success",
+      "Building a professional athlete standard before college",
+      "Faith-based resilience and identity",
+      "Discipline over doubt",
+      "Handling rejection and staying aligned",
+      "From overlooked to elite",
     ],
-  },
-  {
-    eyebrow: "Teams",
-    title: "Workshops",
-    summary:
-      "Interactive sessions for culture, leadership behavior, and what teams do when pressure exposes weak habits.",
-    anchor: "workshops",
+    includes: [
+      "4-8 week curriculum",
+      "Team workshops",
+      "Q&A sessions",
+      "Accountability worksheets",
+      "Faith and performance integration",
+      "Growth tracking metrics",
+    ],
+    outcome: "Athletes leave thinking like pros before they become pros.",
     contactHref: "/contact?type=Team%20workshop",
-    detail:
-      "Workshops create more space than a keynote for discussion, application, and team-specific pressure points. The goal is not just inspiration. It is stronger language, stronger habits, and clearer accountability.",
-    bestFor: [
-      "Athletic programs, staff teams, and student leadership groups",
-      "Culture resets, preseason alignment, and leadership development",
-      "Groups that need practical tools, not just a one-time speech",
-    ],
   },
   {
-    eyebrow: "Leaders",
-    title: "Executive Intensives",
+    tier: "Performance",
+    label: "02",
+    title: "Elite Body. Elite Mind.",
+    subtitle: "Training Mentorship",
+    bestFor: "Serious athletes ready to separate themselves",
     summary:
-      "Focused support for founders, executives, and decision makers carrying real weight across people and performance.",
-    anchor: "executive-intensives",
-    contactHref: "/contact?type=Leadership%20training",
-    detail:
-      "This lane is built for leaders who need sharper thinking, steadier discipline, and a more honest look at how they are responding to pressure behind the scenes.",
-    bestFor: [
-      "Founders, executives, and senior leadership teams",
-      "High-stakes seasons, transitions, and culture pressure",
-      "Short, focused engagements with direct practical value",
+      "For athletes ready to operate at professional standards. This lane combines body care, recovery, training habits, and mindset that match the calling.",
+    focusAreas: [
+      "Recovery protocols",
+      "Professional-level training standards",
+      "Film study and mental reps",
+      "Nutrition principles",
+      "Strength, mobility, and injury prevention",
+      "Building a body that matches your calling",
     ],
-  },
-  {
-    eyebrow: "Athletes",
-    title: "Mentorship",
-    summary:
-      "High-accountability support for athletes navigating pressure, transition, identity, and long-term development.",
-    anchor: "mentorship",
+    includes: [
+      "Monthly or bi-weekly training mentorship",
+      "Body transformation strategy",
+      "Weekly check-ins",
+      "Customized development plan",
+      "Direct mentorship access",
+    ],
+    outcome: "Athletes begin to operate at professional standards.",
     contactHref: "/contact?type=Coaching%20or%20mentorship",
-    detail:
-      "Mentorship is the deeper option for athletes who need strategic guidance, honest accountability, and perspective from someone who has already lived through elite expectations and transition seasons.",
-    bestFor: [
-      "Athletes facing transition, exposure, or performance pressure",
-      "Leaders who need direct accountability and honest feedback",
-      "Families or programs looking for a steadier development voice",
-    ],
   },
   {
-    eyebrow: "Follow-Through",
-    title: "Content Vault",
+    tier: "Immersion",
+    label: "03",
+    title: "From No Film to Pro-Level",
+    subtitle: "High-Touch Mentorship",
+    bestFor: "Elite athletes pursuing college or pro dreams",
     summary:
-      "Ongoing reinforcement through digital resources, short-form teaching, and practical follow-through after the room clears.",
-    anchor: "content-vault",
-    contactHref: "/contact?type=General%20inquiry",
-    detail:
-      "Some teams need more than a single day. This option keeps the message active through follow-up content, reinforcement tools, and practical reminders that help the standard outlast the event.",
-    bestFor: [
-      "Groups that want reinforcement after a keynote or workshop",
-      "Organizations building internal leadership rhythm over time",
-      "Teams that need repeatable language and practical touchpoints",
+      "Nick's story is the differentiator here. This is high-touch, high-accountability mentorship for athletes ready to bet on themselves with clarity, courage, and execution.",
+    focusAreas: [
+      "Transitioning with no film and no guarantee",
+      "Betting on yourself",
+      "Persistence in darkness",
+      "Handling being overlooked",
+      "Faith under pressure",
+      "Navigating tryouts, exposure, and relationships",
     ],
+    includes: [
+      "1-on-1 coaching",
+      "Exposure strategy guidance",
+      "Personal development mapping",
+      "Faith-centered growth coaching",
+      "Custom roadmap",
+    ],
+    outcome: "Athletes gain clarity, courage, and an execution strategy.",
+    contactHref: "/contact?type=Coaching%20or%20mentorship",
     featured: true,
+  },
+];
+
+const leaderTiers: ServiceTier[] = [
+  {
+    tier: "Keynote Experience",
+    label: "01",
+    title: "Achieving the Impossible",
+    subtitle: "Signature Keynote",
+    bestFor:
+      "Leadership conferences, sales teams, corporate retreats, and faith-based organizations",
+    summary:
+      "Nick's story translates directly into corporate resilience. This keynote reframes preparation, faith, and what it means to show up before the door exists.",
+    focusAreas: [
+      "Walking into rooms you do not qualify for yet",
+      "Faith under pressure",
+      "Preparation before opportunity",
+      "Building confidence without credentials",
+      "Showing up before the door exists",
+      "Obedience over outcome",
+    ],
+    includes: [],
+    contactHref: "/contact?type=Keynote%20speaking",
+  },
+  {
+    tier: "Leadership Workshops",
+    label: "02",
+    title: "Leadership That Elevates",
+    subtitle: "Interactive Workshops",
+    bestFor: "Organizations, departments, and leadership teams",
+    summary:
+      "Custom workshops that build performance standards, elevate team behavior, and create measurable culture change that lasts beyond the session.",
+    focusAreas: [
+      "Leading through uncertainty",
+      "Resilience under rejection",
+      "Identity-based leadership",
+      "Culture building through discipline",
+      "Performance standards that elevate teams",
+      "Customized growth planning",
+    ],
+    includes: [
+      "Organizational audit",
+      "Culture assessment",
+      "Custom strategy session",
+      "KPI-aligned follow-through",
+    ],
+    contactHref: "/contact?type=Leadership%20training",
+  },
+  {
+    tier: "Executive Intensive",
+    label: "03",
+    title: "Executive Alignment",
+    subtitle: "High-Level Intensive",
+    bestFor: "CEOs, founders, athletic directors, and senior decision-makers",
+    summary:
+      "A high-level, faith-integrated intensive for leaders who need endurance systems, strategic positioning, and conviction strong enough to lead from character rather than ego.",
+    focusAreas: [
+      "Faith and leadership integration",
+      "Personal endurance systems",
+      "Strategic positioning when undervalued",
+      "Building influence through character",
+      "Stress management and recovery",
+      "Leading from conviction, not ego",
+    ],
+    includes: [
+      "Focused advisory session",
+      "Decision-pressure review",
+      "Leadership rhythm mapping",
+      "Direct implementation priorities",
+    ],
+    contactHref: "/contact?type=Leadership%20training",
+    featured: true,
+  },
+];
+
+const processSteps = [
+  {
+    step: "01",
+    title: "Discovery Call",
+    description:
+      "We start with a conversation around the room, the audience, the goal, and the actual pressure point.",
+  },
+  {
+    step: "02",
+    title: "Custom Tailoring",
+    description:
+      "Nick shapes the keynote, workshop, or coaching path to the exact moment, audience, and outcome you need.",
+  },
+  {
+    step: "03",
+    title: "Delivery and Impact",
+    description:
+      "The message is delivered with energy, authenticity, and practical direction so it lands deeper than inspiration alone.",
+  },
+  {
+    step: "04",
+    title: "Follow-Through",
+    description:
+      "Resources, reinforcement, and the next right step keep the impact moving after the event is over.",
   },
 ] as const;
 
 export const metadata: Metadata = {
   title: "Services | Nick Parks",
   description:
-    "Choose the right Loneless Wolf service lane for speaking, workshops, executive development, mentorship, and follow-through support.",
+    "Explore Loneless Wolf services for student-athletes, teams, executives, and organizations through keynotes, workshops, coaching, and high-accountability mentorship.",
 };
+
+function ServiceTierCard({ tier, delayMs = 0 }: { tier: ServiceTier; delayMs?: number }) {
+  return (
+    <ScrollReveal
+      delayMs={delayMs}
+      className="h-full"
+      contentClassName={`${tier.featured ? "accent-wash" : "surface-card"} h-full rounded-[30px] border border-black/8 px-6 py-7 shadow-card md:px-7`}
+    >
+      <article className="flex h-full flex-col">
+        <div className="flex items-center gap-3">
+          <span className="font-heading text-3xl text-primary/28">{tier.label}</span>
+          <span className="section-eyebrow">{tier.tier}</span>
+        </div>
+
+        <h3 className="mt-5 font-heading text-3xl uppercase tracking-[-0.04em] text-foreground md:text-[2rem]">
+          {tier.title}
+        </h3>
+        <p className="mt-2 text-base leading-7 text-primary">{tier.subtitle}</p>
+        <p className="mt-5 text-sm leading-7 text-muted">{tier.summary}</p>
+
+        <div className="mt-6 rounded-[24px] border border-black/8 bg-white/80 px-5 py-4 backdrop-blur">
+          <p className="font-heading text-xs uppercase tracking-[0.24em] text-foreground/72">Best For</p>
+          <p className="mt-3 text-sm leading-7 text-muted">{tier.bestFor}</p>
+        </div>
+
+        <div className="mt-6">
+          <p className="font-heading text-xs uppercase tracking-[0.24em] text-foreground/72">Focus Areas</p>
+          <div className="mt-4 space-y-3">
+            {tier.focusAreas.map((area) => (
+              <p key={area} className="flex items-start gap-3 text-sm leading-7 text-muted">
+                <span className="mt-[0.55rem] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                <span>{area}</span>
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {tier.includes.length > 0 ? (
+          <div className="mt-6">
+            <p className="font-heading text-xs uppercase tracking-[0.24em] text-foreground/72">Includes</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {tier.includes.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-black/8 bg-white/75 px-3 py-2 text-sm leading-6 text-muted"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        <div className="mt-8 border-t border-black/8 pt-5">
+          {tier.outcome ? (
+            <p className="text-sm leading-7 text-foreground">
+              <span className="font-heading uppercase tracking-[0.22em] text-primary">Outcome</span>
+              <span className="ml-3">{tier.outcome}</span>
+            </p>
+          ) : null}
+          <Link href={tier.contactHref} className="btn-small mt-5 w-fit">
+            Book this service
+          </Link>
+        </div>
+      </article>
+    </ScrollReveal>
+  );
+}
 
 export default function ServicesPage() {
   return (
@@ -100,20 +285,31 @@ export default function ServicesPage() {
       <section className="page-hero overflow-hidden">
         <div className="site-container grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div className="max-w-3xl">
-            <p className="section-eyebrow">Loneless Wolf speaking, coaching, and development options</p>
+            <p className="section-eyebrow">Loneless Wolf services for athletes, leaders, and organizations</p>
             <h1 className="mt-6 font-heading text-5xl uppercase tracking-[-0.06em] text-foreground md:text-7xl">
-              Built for rooms under pressure.
-              <span className="block text-primary">Choose the lane that fits the objective.</span>
+              What Nick offers.
+              <span className="block text-primary">Built for real rooms, real pressure, and real growth.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted md:text-xl">
-              Start with the closest fit, review the lane, and move straight into a
-              booking conversation with clarity.
+              Keynote speaking, mental performance coaching, culture workshops, and mentorship tailored to
+              your team, organization, or individual assignment.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link href="/contact" className="btn-primary">
-                Book Nick
+                Book a Discovery Call
               </Link>
-              <Transparent3DButton href="#service-grid" label="View Options" />
+              <Transparent3DButton href="#student-athletes" label="Explore Services" />
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3 text-sm text-muted">
+              <a href="#student-athletes" className="rounded-full border border-black/8 bg-white/80 px-4 py-2 backdrop-blur">
+                Student-athlete tiers
+              </a>
+              <a href="#leaders" className="rounded-full border border-black/8 bg-white/80 px-4 py-2 backdrop-blur">
+                Leadership services
+              </a>
+              <a href="#process" className="rounded-full border border-black/8 bg-white/80 px-4 py-2 backdrop-blur">
+                Process
+              </a>
             </div>
           </div>
 
@@ -127,76 +323,69 @@ export default function ServicesPage() {
                 className="object-cover"
                 sizes="(min-width: 1024px) 46vw, 92vw"
               />
+              <div className="absolute inset-x-5 bottom-5 rounded-[22px] border border-white/35 bg-black/55 px-5 py-4 text-white backdrop-blur">
+                <p className="font-heading text-xs uppercase tracking-[0.28em] text-white/72">Loneless Wolf</p>
+                <p className="mt-2 text-base leading-7 text-white/88">
+                  Speaking, coaching, and development lanes designed to move people from overlooked to elite.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="service-grid" className="pb-16 md:pb-24">
+      <section id="student-athletes" className="section-space pt-0">
         <div className="site-container">
-          <div className="grid gap-4 md:grid-cols-2">
-            {serviceOptions.map((option, index) => (
-              <ScrollReveal
-                key={option.anchor}
-                delayMs={index * 70}
-                className="h-full"
-                contentClassName={`${("featured" in option && option.featured) ? "accent-wash" : "surface-card"} h-full rounded-[30px] border border-black/8 px-6 py-7 shadow-card`}
-              >
-                <article>
-                  <p className="section-eyebrow">{option.eyebrow}</p>
-                  <h2 className="mt-4 font-heading text-3xl uppercase tracking-[-0.04em] text-foreground md:text-4xl">
-                    {option.title}
-                  </h2>
-                  <p className="mt-4 max-w-xl text-sm leading-7 text-muted">{option.summary}</p>
-                  <Transparent3DButton
-                    href={`#${option.anchor}`}
-                    label="Discover More"
-                    size="small"
-                    className="mt-8"
-                  />
-                </article>
-              </ScrollReveal>
+          <SectionHeading
+            eyebrow="For Student-Athletes"
+            title={<>Three tiers to elite.</>}
+            description="From team-wide development to high-touch mentorship, these services mirror the strongest parts of the 2.0 offer while staying in the current Loneless Wolf format."
+          />
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {athleteTiers.map((tier, index) => (
+              <ServiceTierCard key={tier.title} tier={tier} delayMs={index * 80} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-space pt-0">
-        <div className="site-container space-y-4">
-          {serviceOptions.map((option, index) => (
-            <ScrollReveal key={option.anchor} delayMs={index * 80}>
-              <article
-                id={option.anchor}
-                className={`${("featured" in option && option.featured) ? "accent-wash" : "surface-card"} scroll-mt-32 rounded-[32px] border border-black/8 px-6 py-8 shadow-card md:px-8`}
-              >
-                <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-                  <div>
-                    <p className="section-eyebrow">{option.eyebrow}</p>
-                    <h2 className="mt-4 font-heading text-3xl uppercase tracking-[-0.04em] text-foreground md:text-5xl">
-                      {option.title}
-                    </h2>
-                    <p className="mt-5 max-w-3xl text-base leading-8 text-muted">{option.detail}</p>
-                  </div>
+      <section id="leaders" className="section-space pt-0">
+        <div className="site-container">
+          <SectionHeading
+            eyebrow="For Corporate Leaders and Executives"
+            title={<>Leadership through resilience.</>}
+            description="Keynotes, workshops, and executive intensives that bring athletic-level discipline, faith, and performance standards into the boardroom and leadership team."
+          />
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {leaderTiers.map((tier, index) => (
+              <ServiceTierCard key={tier.title} tier={tier} delayMs={index * 80} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-                  <div className="rounded-[24px] border border-black/8 bg-white/82 px-5 py-5 backdrop-blur">
-                    <p className="font-heading text-xs uppercase tracking-[0.24em] text-foreground/72">
-                      Best For
-                    </p>
-                    <div className="mt-4 space-y-3">
-                      {option.bestFor.map((item) => (
-                        <p key={item} className="text-sm leading-7 text-muted">
-                          {item}
-                        </p>
-                      ))}
-                    </div>
-                    <Link href={option.contactHref} className="btn-small mt-6 w-fit">
-                      Book this lane
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            </ScrollReveal>
-          ))}
+      <section id="process" className="section-space pt-0">
+        <div className="site-container">
+          <ScrollReveal contentClassName="surface-card px-6 py-8 md:px-8">
+            <SectionHeading
+              eyebrow="The Process"
+              title={<>How it works.</>}
+              description="The service flow is simple: clarify the objective, tailor the experience, deliver with weight, and keep the growth moving after the room clears."
+            />
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {processSteps.map((step, index) => (
+                <ScrollReveal key={step.step} delayMs={index * 70} className="h-full">
+                  <article className="flex h-full flex-col rounded-[26px] border border-black/8 bg-white/72 px-5 py-6 shadow-card backdrop-blur">
+                    <span className="font-heading text-5xl text-primary/26">{step.step}</span>
+                    <h3 className="mt-4 font-heading text-2xl uppercase tracking-[-0.04em] text-foreground">
+                      {step.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-7 text-muted">{step.description}</p>
+                  </article>
+                </ScrollReveal>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -220,16 +409,16 @@ export default function ServicesPage() {
       <section className="section-space pt-0">
         <div className="site-container">
           <LonelessWolfBanner
-            title={<>The Loneless Wolf brand keeps the work aligned.</>}
-            description="Every lane is built to bring the same standard into the room: preparation, faith, resilience, and a response people can actually use after the session ends."
+            title={<>Ready to build the right service lane?</>}
+            description="Whether you need a keynote, a student-athlete program, leadership development, or high-accountability mentorship, Loneless Wolf can tailor the room, the message, and the follow-through around the outcome you need."
             href="/contact"
             ctaLabel="Book Nick"
-            secondaryHref="/mission"
-            secondaryLabel="See the Mission"
+            secondaryHref="/about"
+            secondaryLabel="Learn More About Nick"
             badges={[
-              "Speaking that stays with the room.",
-              "Coaching built for pressure.",
-              "Follow-through beyond the event.",
+              "Keynotes that shift the room.",
+              "Programs that develop overlooked athletes.",
+              "Leadership intensives with staying power.",
             ]}
           />
         </div>

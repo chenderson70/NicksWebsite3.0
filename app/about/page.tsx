@@ -13,32 +13,27 @@ const disclosures = [
     eyebrow: "Story",
     title: "What shaped the message",
     preview:
-      "Purdue, elite competition, injuries, transition, and the unseen work behind the visible result.",
+      "Nick's story is one of relentless transformation through injury, transition, and persistence.",
     body: [
-      "Nick's path includes Purdue track, elite competition, hip surgeries, a transition toward football with no film, and the type of persistence most people never see when they only watch the polished result.",
-      "That is why the message carries weight. It is built from response under pressure, not from abstract motivation.",
+      "Nick's story is one of relentless transformation. He broke a 54-year-old 400m school record at Purdue, endured two hip surgeries, transitioned from track to football with no film, and cold-called agents to earn an invitation to a professional football evaluation with the Calgary Stampeders. He has trained alongside elite NFL athletes and built relationships with NFL ownership-level executives.",
     ],
   },
   {
     eyebrow: "Credibility",
     title: "Why the message carries weight",
     preview:
-      "15x All-American, Purdue captain and record holder, professional Slamball athlete, and Division I coaching experience.",
+      "15x All-American, professional Slamball athlete, Purdue captain, Male MVP, and 2x First-Team All-American.",
     body: [
-      "2x First-Team All-American at Purdue University.",
-      "54-year-old school record broken in the 400m.",
-      "Professional Slamball competition and broad athletic development work.",
-      "Division I coaching experience producing Big Ten champions and NCAA finalists.",
+      "Nicholas Parks is a 15x All-American, Professional Slamball Athlete ranked among the Top 3 Highest Flyers in the league, and a performance-driven speaker blending faith, resilience, and an elite sport mindset. He holds a BS in Organizational Leadership from Purdue University, where he served as Team Captain, Male MVP, and a 2x First-Team All-American.",
     ],
   },
   {
     eyebrow: "Identity",
-    title: "Why Loneless Wolf matters",
+    title: "How he serves athletes",
     preview:
-      "The brand gives language to people carrying pressure with faith and discipline.",
+      "He helps athletes identify what is blocking progress and builds strategies that produce real results.",
     body: [
-      `${BRAND.name} is not a side label. It is the identity framework behind the message: you are not alone in being a working optimist leaning on faith.`,
-      "That framing helps athletes, leaders, and families understand that resilience and belief can coexist with real pressure, long timelines, and unseen work.",
+      "He empowers athletes to reach their full potential off and on the field, identifying the impediments to their progress and tailoring strategies to elicit real results. His D-1 coaching experience at Purdue resulted in Big Ten Champions and NCAA finalists, proving he delivers at every level.",
     ],
   },
 ] as const;
@@ -240,3 +235,4 @@ export default function AboutPage() {
     </>
   );
 }
+

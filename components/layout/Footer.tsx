@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import LonelessWolfMark from "@/components/site/LonelessWolfMark";
-import ScrollReveal from "@/components/site/ScrollReveal";
 import {
   BRAND,
   FOOTER_LINKS,
@@ -28,32 +27,7 @@ export default function Footer() {
   return (
     <footer className="pt-0 pb-8">
       <div className="site-container">
-        <ScrollReveal
-          className="md:mr-10 lg:mr-16"
-          contentClassName="ink-panel rounded-[36px] px-6 py-10 md:px-10"
-          delayMs={200}
-        >
-          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
-            <div>
-              <p className="section-eyebrow !text-white/70">{BRAND.name}</p>
-              <h2 className="mt-3 font-heading text-3xl uppercase tracking-[-0.04em] text-white md:text-5xl">
-                Bring the Loneless Wolf standard into the room.
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72 md:text-base">
-                {BRAND.statement} The work is built for athletes, teams, leaders,
-                and organizations that need courage with a plan behind it.
-              </p>
-            </div>
-            <Link
-              href="/contact"
-              className="btn-small w-fit !border-white/20 !bg-white/10 !text-white hover:!bg-white hover:!text-foreground"
-            >
-              Book Nick
-            </Link>
-          </div>
-        </ScrollReveal>
-
-        <div className="mt-6 surface-card px-6 py-10 md:px-10">
+        <div className="surface-card px-6 py-10 md:px-10">
           <div className="grid gap-10 md:grid-cols-[1.25fr_0.85fr_1fr_0.9fr]">
             <div>
               <div className="flex items-center gap-4">
@@ -152,7 +126,7 @@ export default function Footer() {
                 </Link>
               ))}
             </div>
-            <p>© {new Date().getFullYear()} Nick Parks | Loneless Wolf. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Nick Parks | Loneless Wolf. All rights reserved.</p>
           </div>
         </div>
       </div>
