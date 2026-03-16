@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import LonelessWolfMark from "@/components/site/LonelessWolfMark";
 import { BRAND, INITIATIVE_LINKS, NAV_LINKS } from "@/lib/constants";
+import { publicAsset } from "@/lib/utils";
 
 function Chevron({ open }: { open: boolean }) {
   return (
@@ -162,7 +164,15 @@ export default function Navbar() {
                       <div className="grid gap-4 md:grid-cols-[1fr_1.35fr]">
                         <div className="ink-panel rounded-[28px] p-6">
                           <div className="flex items-center gap-4">
-                            <LonelessWolfMark size={60} />
+                            <div className="relative h-[60px] w-[60px] shrink-0 overflow-hidden rounded-full border border-white/16 bg-white/10 p-1.5 shadow-card">
+                              <Image
+                                src={publicAsset("/images/LoneWolf.JPG")}
+                                alt="Loneless Wolf symbol"
+                                fill
+                                sizes="60px"
+                                className="object-contain object-center p-1"
+                              />
+                            </div>
                             <div>
                               <p className="section-eyebrow !text-white/70">{BRAND.name}</p>
                               <h3 className="mt-3 font-heading text-3xl uppercase tracking-[-0.04em] text-white">

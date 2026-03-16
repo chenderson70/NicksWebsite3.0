@@ -30,6 +30,22 @@ const testimonials = [
   },
   {
     short:
+      "Nick does a tremendous job of speaking and relating to kids through his stories and different topics. They respond to him well, and that reflects how naturally he connects with them...",
+    full:
+      "Nick does a tremendous job of speaking and relating to the kids with his stories in various topics. The kids respond and listen to him well and I believe that is a testament to how he connects with them. Great leader.",
+    name: "Coach Holley",
+    title: "Head Football Coach at Cherokee High School",
+  },
+  {
+    short:
+      "Nick spoke life into the team before Regionals and pulled from real experience competing at the highest level. Athletes stayed after to ask questions because the message carried weight...",
+    full:
+      "Nick spoke life into the team as we prepared to compete in Regionals for Track later in the week. His speech came from personal experiences of competing at the highest level that served as inspiration ahead of an important track meet. Some athletes were eager to ask questions for his insight afterwards.",
+    name: "Coach Q",
+    title: "Track Coach at Chapel Hill High School",
+  },
+  {
+    short:
       "It was really great having him as a dorm parent. He taught me things what I didn't know about being a professional athlete in America and he always taught me life lessons...",
     full:
       "It was really great having him as a dorm parent. He taught me things what I didn't know about being a professional athlete in America and he always taught me life lessons. He is one of the best role models ever. Glad I got to know him going to miss him.",
@@ -79,13 +95,54 @@ const testimonials = [
 ] as const;
 
 const trustedPhotos = [
-  { src: publicAsset("/images/NickET.jpg"), alt: "Nick Parks with Eric Thomas" },
-  { src: publicAsset("/images/NickBishop.jpg"), alt: "Nick Parks with Bishop" },
-  { src: publicAsset("/images/NickServe.jpg"), alt: "Nick Parks in Nashville" },
-  { src: publicAsset("/images/NickWarrick.JPG"), alt: "Nick Parks with Warrick Dunn" },
-  { src: publicAsset("/images/NickKarl.JPEG"), alt: "Nick Parks at Georgia Power" },
-  { src: publicAsset("/images/NickDe'Oni.jpeg"), alt: "Nick Parks behind the scenes" },
-  { src: publicAsset("/images/NickHouseofHighlight.jpg"), alt: "Nick Parks at House of Highlights" },
+  {
+    src: publicAsset("/images/NickET.jpg"),
+    alt: "Nick Parks with Eric Thomas",
+    title: "Eric Thomas",
+    description: "Leader and the #1 motivational speaker in the world. Eric Thomas Associates.",
+  },
+  {
+    src: publicAsset("/images/NickBishop.jpg"),
+    alt: "Nick Parks with Bishop Bronner",
+    title: "Bishop Bronner",
+    description: "Pastor and founder of Word of Faith Family Cathedral.",
+  },
+  {
+    src: publicAsset("/images/NickServe.jpg"),
+    alt: "Nick Parks at Serve",
+    title: "Serve",
+    description: "A service-centered moment that reflects the mission in action through leadership, presence, and community impact.",
+  },
+  {
+    src: publicAsset("/images/NickWarrick.JPG"),
+    alt: "Nick Parks with Warrick Dunn",
+    title: "Warrick Dunn",
+    description: "Minority owner of the Atlanta Falcons and owner of Warrick Dunn Charities.",
+  },
+  {
+    src: publicAsset("/images/nicroland.jpg"),
+    alt: "Nick Parks with Nic Roland",
+    title: "Roland Parrish",
+    description: "Owner of Parrish Charitable Foundation and 21 McDonald's restaurants.",
+  },
+  {
+    src: publicAsset("/images/NickKarl.JPEG"),
+    alt: "Nick Parks with Karl Phillips",
+    title: "Karl Phillips",
+    description: "Owner of Moving Past Potential and lead digital administrator for APOC Ministries.",
+  },
+  {
+    src: publicAsset("/images/NickDe'Oni.jpeg"),
+    alt: "Nick Parks with De'Oni Dew",
+    title: "De'Oni Dew",
+    description: "Lead production and event administrator for Next Level Living and Next Level Speakers Academy.",
+  },
+  {
+    src: publicAsset("/images/NickHouseofHighlight.jpg"),
+    alt: "Nick Parks refereeing a House of Highlights event",
+    title: "House of Highlights",
+    description: "Refereeing a House of Highlights event streamed to 594k subscribers.",
+  },
 ] as const;
 
 export default function TestimonialsPage() {
@@ -98,8 +155,8 @@ export default function TestimonialsPage() {
         <div className="site-container">
           <SectionHeading
             eyebrow="Trusted By"
-            title={<>Trust is earned long before the stage.</>}
-            description="These relationships reflect the kind of impact Nick brings across athletics, education, leadership, and community work."
+            title={<>Leadership is measured by the trust you build when people are counting on you. Leaving people stronger, seen, and ready for what’s next.</>}
+            description="These testimonials reflect the way Nick leads with service, clarity, and conviction across teams, schools, athletics and communities."
           />
         </div>
       </section>
@@ -266,14 +323,24 @@ export default function TestimonialsPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <div className="relative flex max-h-[86vh] min-h-[72vh] items-center justify-center overflow-hidden rounded-[22px] bg-black/6 px-4 py-4">
-              <Image
-                src={trustedPhotos[expandedPhoto].src}
-                alt={trustedPhotos[expandedPhoto].alt}
-                fill
-                className="object-contain object-center"
-                sizes="92vw"
-              />
+            <div className="flex max-h-[86vh] flex-col overflow-y-auto rounded-[22px] bg-black/6">
+              <div className="relative flex min-h-[60vh] items-center justify-center overflow-hidden px-4 py-4">
+                <Image
+                  src={trustedPhotos[expandedPhoto].src}
+                  alt={trustedPhotos[expandedPhoto].alt}
+                  fill
+                  className="object-contain object-center"
+                  sizes="92vw"
+                />
+              </div>
+              <div className="border-t border-black/8 bg-white px-6 py-5 md:px-8">
+                <p className="font-heading text-sm uppercase tracking-[0.22em] text-primary">
+                  {trustedPhotos[expandedPhoto].title}
+                </p>
+                <p className="mt-3 text-base leading-8 text-foreground/78">
+                  {trustedPhotos[expandedPhoto].description}
+                </p>
+              </div>
             </div>
           </div>
         </div>

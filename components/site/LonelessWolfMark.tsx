@@ -5,12 +5,16 @@ interface LonelessWolfMarkProps {
   className?: string;
   size?: number;
   alt?: string;
+  imageClassName?: string;
+  imageFit?: "cover" | "contain";
 }
 
 export default function LonelessWolfMark({
   className,
   size = 88,
   alt = "Loneless Wolf symbol",
+  imageClassName,
+  imageFit = "cover",
 }: LonelessWolfMarkProps) {
   return (
     <div className={cn("wolf-mark", className)} style={{ width: size, height: size }}>
@@ -21,7 +25,8 @@ export default function LonelessWolfMark({
           alt={alt}
           fill
           sizes={`${size}px`}
-          className="object-cover"
+          className={imageClassName}
+          style={{ objectFit: imageFit }}
         />
       </span>
     </div>

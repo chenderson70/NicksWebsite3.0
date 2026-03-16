@@ -333,7 +333,9 @@ export default function MissionPage() {
                 key={value.name}
                 delayMs={index * 80}
                 className="h-full"
-                contentClassName="mission-value-card surface-card h-full px-6 py-6"
+                contentClassName={`mission-value-card h-full px-6 py-6 ${
+                  index % 3 === 1 ? "accent-wash" : "surface-card"
+                }`}
               >
                 <div className="flex flex-col gap-4">
                   <div className="text-center">

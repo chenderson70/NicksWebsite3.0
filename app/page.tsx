@@ -5,6 +5,7 @@ import DisclosureCard from "@/components/site/DisclosureCard";
 import LonelessWolfBanner from "@/components/site/LonelessWolfBanner";
 import LonelessWolfMark from "@/components/site/LonelessWolfMark";
 import LonelessWolfStatement from "@/components/site/LonelessWolfStatement";
+import HomepageQuoteVideoSpotlight from "@/components/site/HomepageQuoteVideoSpotlight";
 import ScrollReveal from "@/components/site/ScrollReveal";
 import SectionHeading from "@/components/site/SectionHeading";
 import SignaturePhotoShowcase from "@/components/site/SignaturePhotoShowcase";
@@ -161,11 +162,18 @@ export default function HomePage() {
 
       <section className="pb-16 md:pb-24">
         <div className="site-container">
-          <div className="grid gap-4 lg:grid-cols-[1.25fr_0.75fr] lg:items-stretch">
-            <ScrollReveal contentClassName="surface-card h-full px-6 py-8 md:px-8">
+          <div className="grid gap-4">
+            <ScrollReveal className="min-w-0" contentClassName="surface-card h-full min-w-0 px-6 py-8 md:px-8">
               <SectionHeading
                 eyebrow="Nicholas Parks"
-                title={<>Professional athlete. Mental performance coach. Culture enhancer.</>}
+                title={
+                  <>
+                    <span className="block text-foreground">Professional athlete.</span>
+                    <span className="block text-primary">Mental performance coach.</span>
+                    <span className="block text-foreground/72">Culture enhancer.</span>
+                  </>
+                }
+                titleClassName="space-y-1"
                 description="Nicholas Parks is the Loneless Wolf. The work is built to help athletes and leaders reach their full potential on and off the field."
               />
               <div className="mt-6 space-y-4 text-base leading-8 text-muted md:text-lg">
@@ -175,24 +183,13 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delayMs={120} contentClassName="ink-panel flex h-full flex-col rounded-[32px] px-6 py-8 md:px-8 md:py-10">
-              <div>
+            <ScrollReveal delayMs={120} className="min-w-0" contentClassName="ink-panel h-full min-w-0 rounded-[32px] px-6 py-8 md:px-8 md:py-10">
+              <div className="min-w-0">
                 <p className="section-eyebrow !text-white/70">Mindset</p>
-                <p className="mt-6 font-heading text-3xl uppercase tracking-[-0.04em] text-white md:text-5xl">
+                <p className="mt-4 max-w-[13ch] font-heading text-[1.65rem] uppercase leading-[0.98] tracking-[-0.035em] text-white md:max-w-none md:text-[2.3rem]">
                   {homepageQuote}
                 </p>
-              </div>
-              <div className="mt-10 flex flex-1 items-end">
-                <div className="w-full">
-                  <div className="homepage-brand-marquee" aria-hidden="true">
-                    <div className="homepage-brand-marquee__track">
-                      <span>Loneless Wolf</span>
-                      <span>Loneless Wolf</span>
-                      <span>Loneless Wolf</span>
-                    </div>
-                  </div>
-                  <div className="mt-5 h-px w-24 bg-primary/70" />
-                </div>
+                <HomepageQuoteVideoSpotlight />
               </div>
             </ScrollReveal>
           </div>
@@ -244,8 +241,8 @@ export default function HomePage() {
           <div>
             <SectionHeading
               eyebrow={BRAND.name}
-              title={<>A brand built for people under pressure.</>}
-              description="Nick speaks to athletes, teams, and leaders who need preparation, resilience, and conviction to show up in how they lead and respond under pressure."
+              title={<>A brand built to prepare leaders, athletes, and people to thrive under inevitable pressure.</>}
+              description="Nick helps leaders, athletes, and teams build the preparation, resilience, and belief needed to thrive under unavoidable pressure with poise and action."
             />
             <div className="mt-8 space-y-4">
               {homepageDisclosures.map((item, index) => (

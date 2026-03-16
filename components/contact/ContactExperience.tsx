@@ -165,7 +165,7 @@ export default function ContactExperience() {
           <div className="max-w-3xl">
             <p className="section-eyebrow">Booking Form</p>
             <h3 className="mt-4 font-heading text-3xl uppercase tracking-[-0.04em] text-foreground md:text-4xl">
-              Send the brief.
+              Let's build something meaningful.
             </h3>
             <p className="mt-4 text-base leading-8 text-muted">
               This form is built for fast screening. Give the basics, the timing, and the objective so the next step can be clear.

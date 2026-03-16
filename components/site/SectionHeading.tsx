@@ -7,6 +7,7 @@ interface SectionHeadingProps {
   description?: string;
   align?: "left" | "center";
   className?: string;
+  eyebrowClassName?: string;
   titleClassName?: string;
   descriptionClassName?: string;
 }
@@ -17,6 +18,7 @@ export default function SectionHeading({
   description,
   align = "left",
   className,
+  eyebrowClassName,
   titleClassName,
   descriptionClassName,
 }: SectionHeadingProps) {
@@ -27,7 +29,7 @@ export default function SectionHeading({
         className
       )}
     >
-      {eyebrow ? <p className="section-eyebrow">{eyebrow}</p> : null}
+      {eyebrow ? <p className={cn("section-eyebrow", eyebrowClassName)}>{eyebrow}</p> : null}
       <h2 className={cn("section-title mt-4", titleClassName)}>{title}</h2>
       {description ? (
         <p className={cn("section-copy mt-5", descriptionClassName)}>

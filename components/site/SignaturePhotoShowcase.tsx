@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { publicAsset } from "@/lib/utils";
 
-const visualPillars = ["Preparation", "Resilience", "Conviction"];
+const visualPillars = ["Service", "Standards", "Belonging"];
 
 export default function SignaturePhotoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,9 +59,9 @@ export default function SignaturePhotoShowcase() {
         </div>
 
         <div className="signature-visual__panel">
-          <p className="section-eyebrow">In Real Rooms</p>
+          <p className="section-eyebrow">Leadership</p>
           <p className="mt-3 max-w-2xl font-heading text-xl uppercase tracking-[0.12em] text-foreground md:text-2xl">
-            The standard stays the same when the spotlight leaves.
+            Servant leadership earns trust, raises the standard, and strengthens individuals' belief to conquer what's ahead.
           </p>
           <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
             {visualPillars.map((pillar) => (
