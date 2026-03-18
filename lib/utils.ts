@@ -1,18 +1,12 @@
 import { type ClassValue, clsx } from "clsx";
 
-const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
 // Lightweight cn() without tailwind-merge dependency
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
 export function publicAsset(path: string): string {
-  if (!path.startsWith("/")) {
-    return path;
-  }
-
-  return `${publicBasePath}${path}`;
+  return path;
 }
 
 export function slugify(text: string): string {

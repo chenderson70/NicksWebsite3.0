@@ -60,10 +60,6 @@ npm run build
 
 This produces the standard Next.js production build used by Vercel.
 
-### Build the static export for GitHub Pages
-
-The repository still supports GitHub Pages as a static fallback. The Pages workflow sets `GITHUB_PAGES=true` automatically before running the build.
-
 ## Project Structure
 
 ```text
@@ -82,6 +78,7 @@ This repo is now configured so Vercel can run the site as a full Next.js app wit
 
 Required Vercel environment variables:
 
+- `APP_URL=https://nickswebsite3-0.vercel.app`
 - `EMAIL_FROM`
 - `BOOKING_EMAIL_TO=nicholasparks14@gmail.com`
 - `SMTP_HOST`
@@ -98,14 +95,6 @@ Optional Vercel environment variable:
 
 If `DATABASE_URL` is omitted, form submissions still email Nick but will not be stored in Postgres.
 
-### Optional: GitHub Pages
-
-The repository also keeps the existing GitHub Pages workflow for static-only deployment.
-
-- Pushes to `main` trigger the Pages build.
-- The workflow exports the site from Next.js and publishes the `out/` directory.
-- Production Pages builds use the `/NicksWebsite3.0` base path required by GitHub project sites.
-
 ## Media Assets
 
 Large video files are tracked with Git LFS. Clone with Git LFS installed so production media assets are fetched correctly.
@@ -113,7 +102,7 @@ Large video files are tracked with Git LFS. Clone with Git LFS installed so prod
 ## Repository
 
 - Repo: https://github.com/chenderson70/NicksWebsite3.0
-- Planned Pages URL: https://chenderson70.github.io/NicksWebsite3.0/
+- Production URL: https://nickswebsite3-0.vercel.app/
 
 ## License
 

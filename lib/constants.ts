@@ -1,9 +1,6 @@
 import { publicAsset } from "@/lib/utils";
 
-const defaultSiteUrl =
-  process.env.GITHUB_PAGES === "true"
-    ? "https://chenderson70.github.io/NicksWebsite3.0"
-    : "http://localhost:3000";
+const defaultSiteUrl = "http://localhost:3000";
 
 export const BRAND = {
   name: "Loneless Wolf",
