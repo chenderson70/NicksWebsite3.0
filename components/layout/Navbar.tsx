@@ -97,22 +97,25 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="site-container pt-4">
+      <div className="site-container pt-2.5 sm:pt-3 md:pt-4">
         <div
-          className={`rounded-[32px] border transition-all duration-300 ${
+          className={`rounded-[26px] border transition-all duration-300 sm:rounded-[30px] md:rounded-[32px] ${
             scrolled || mobileOpen || desktopInitiativesOpen
               ? "border-black/10 bg-white/95 shadow-card backdrop-blur"
               : "border-black/8 bg-white/82 backdrop-blur"
           }`}
         >
-          <div className="flex items-center justify-between px-5 py-4 md:px-7">
-            <Link href="/" className="flex min-w-0 items-center gap-3">
+          <div className="flex items-center justify-between px-4 py-3 sm:px-5 sm:py-3.5 md:px-7 md:py-4">
+            <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
               <LonelessWolfMark size={46} className="shrink-0" />
               <div className="min-w-0">
-                <span className="block truncate font-heading text-lg uppercase tracking-[0.18em] text-foreground md:text-xl">
+                <span className="block truncate font-heading text-base uppercase leading-none tracking-[0.16em] text-foreground sm:text-lg md:text-xl md:tracking-[0.18em]">
                   Nick Parks
                 </span>
-                <span className="block text-xs uppercase tracking-[0.28em] text-muted">
+                <span className="mt-1 block text-[10px] uppercase leading-tight tracking-[0.22em] text-muted sm:hidden">
+                  Athlete | Speaker | Coach
+                </span>
+                <span className="mt-1 hidden text-[10px] uppercase leading-tight tracking-[0.24em] text-muted sm:block md:text-xs md:tracking-[0.28em]">
                   {BRAND.name} | Athlete | Speaker | Coach
                 </span>
               </div>
@@ -226,13 +229,13 @@ export default function Navbar() {
 
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-foreground lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground lg:hidden sm:h-11 sm:w-11"
               aria-label="Toggle navigation"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((current) => !current)}
             >
               <svg
-                className="h-5 w-5"
+                className="h-[18px] w-[18px] sm:h-5 sm:w-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -257,9 +260,9 @@ export default function Navbar() {
           </div>
 
           {mobileOpen && (
-            <div className="border-t border-black/8 px-5 pb-5 pt-3 lg:hidden">
-              <div className="mb-4 flex items-center gap-3 rounded-[22px] border border-black/8 bg-paper/80 px-4 py-4">
-                <LonelessWolfMark size={50} />
+            <div className="border-t border-black/8 px-4 pb-4 pt-2.5 sm:px-5 sm:pb-5 sm:pt-3 lg:hidden">
+              <div className="mb-4 flex items-center gap-3 rounded-[22px] border border-black/8 bg-paper/80 px-3.5 py-3.5 sm:px-4 sm:py-4">
+                <LonelessWolfMark size={44} />
                 <div>
                   <p className="font-heading text-sm uppercase tracking-[0.2em] text-foreground">
                     {BRAND.name}
