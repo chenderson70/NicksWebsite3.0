@@ -162,8 +162,8 @@ export default function Navbar() {
                 </button>
 
                 {desktopInitiativesOpen && (
-                  <div className="absolute left-1/2 top-full z-30 w-[min(760px,82vw)] -translate-x-1/2 pt-5">
-                    <div className="surface-card p-5">
+                  <div className="absolute right-0 top-full z-30 w-[min(760px,calc(100vw-2rem))] pt-4 xl:w-[760px]">
+                    <div className="surface-card max-h-[min(72vh,680px)] overflow-y-auto p-4 xl:p-5">
                       <div className="grid gap-4 md:grid-cols-[1fr_1.35fr]">
                         <div className="ink-panel rounded-[28px] p-6">
                           <div className="flex items-center gap-4">
