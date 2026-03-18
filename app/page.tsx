@@ -203,7 +203,7 @@ export default function HomePage() {
                     <div>
                       <p className="section-eyebrow">Featured video</p>
                       <p className="mt-3 max-w-2xl text-sm leading-6 text-muted md:text-base md:leading-7">
-                        A cleaner look at the SlamBall clip, separated from the quote so the mobile layout has more room to breathe.
+                        ESPN Featured Dunk
                       </p>
                     </div>
                   </div>
@@ -333,4 +333,3 @@ export default function HomePage() {
     </>
   );
 }
-

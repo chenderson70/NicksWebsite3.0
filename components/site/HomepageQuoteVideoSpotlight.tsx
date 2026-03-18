@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { publicAsset } from "@/lib/utils";
 
@@ -10,6 +10,7 @@ const videoSrc = publicAsset("/images/homepageclip.mov");
 export default function HomepageQuoteVideoSpotlight() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const expandedVideoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -34,6 +35,20 @@ export default function HomepageQuoteVideoSpotlight() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
+  }, [isExpanded]);
+
+  useEffect(() => {
+    if (!isExpanded || !expandedVideoRef.current) {
+      return;
+    }
+
+    const playback = expandedVideoRef.current.play();
+
+    if (playback && typeof playback.catch === "function") {
+      playback.catch(() => {
+        // Native controls still allow a manual play if autoplay is blocked.
+      });
+    }
   }, [isExpanded]);
 
   return (
@@ -93,17 +108,17 @@ export default function HomepageQuoteVideoSpotlight() {
       {isMounted && isExpanded
         ? createPortal(
             <div
-              className="fixed inset-0 z-[80] flex items-center justify-center bg-[#050706]/62 p-4 backdrop-blur-md"
+              className="fixed inset-0 z-[80] bg-black/94 backdrop-blur-md"
               onClick={() => setIsExpanded(false)}
             >
               <div
-                className="relative w-full max-w-[min(92vw,1400px)] rounded-[32px] border border-white/16 bg-white/10 p-3 shadow-[0_42px_120px_-48px_rgba(0,0,0,0.72)] backdrop-blur-xl md:p-4"
+                className="relative h-full w-full"
                 onClick={(event) => event.stopPropagation()}
               >
                 <button
                   type="button"
                   onClick={() => setIsExpanded(false)}
-                  className="absolute right-5 top-5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-[#101311]/76 text-white shadow-card backdrop-blur"
+                  className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-[#101311]/76 text-white shadow-card backdrop-blur md:right-6 md:top-6"
                   aria-label="Close homepage highlight video"
                 >
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,27 +126,17 @@ export default function HomepageQuoteVideoSpotlight() {
                   </svg>
                 </button>
 
-                <div className="relative overflow-hidden rounded-[24px] bg-black">
-                  <div className="relative aspect-[16/9]">
-                    <video
-                      src={videoSrc}
-                      controls
-                      autoPlay
-                      playsInline
-                      preload="metadata"
-                      poster={posterSrc}
-                      className="h-full w-full bg-black object-contain"
-                    />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/84 via-black/34 to-transparent px-5 pb-5 pt-16 md:px-6 md:pb-6">
-                      <p className="font-heading text-xs uppercase tracking-[0.26em] text-white/72">
-                        Featured clip
-                      </p>
-                      <p className="mt-2 max-w-2xl text-sm leading-6 text-white md:text-lg md:leading-7">
-                        A larger view of the homepage highlight in the same expanded treatment used on the Mission page.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <video
+                  ref={expandedVideoRef}
+                  src={videoSrc}
+                  controls
+                  autoPlay
+                  muted
+                  playsInline
+                  preload="auto"
+                  poster={posterSrc}
+                  className="h-full w-full bg-black object-contain"
+                />
               </div>
             </div>,
             document.body

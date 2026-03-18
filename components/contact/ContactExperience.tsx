@@ -105,7 +105,7 @@ export default function ContactExperience() {
 
       if (response.ok) {
         setStatus("success");
-        setFeedback(result?.message || `Your inquiry was sent to ${SITE.email}.`);
+        setFeedback(result?.message || "Your inquiry was sent.");
         setFallbackMailto(null);
         setForm(initialForm);
         return;

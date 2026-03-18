@@ -323,7 +323,7 @@ export async function POST(request: Request) {
 
     if (emailResult.sent) {
       return NextResponse.json({
-        message: `Your inquiry was sent to ${targetEmail}.`,
+        message: "Your inquiry was sent.",
         leadSaved,
       });
     }
