@@ -162,7 +162,7 @@ export default function HomePage() {
 
       <section className="pb-16 md:pb-24">
         <div className="site-container">
-          <div className="grid gap-4">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:items-start">
             <ScrollReveal className="min-w-0" contentClassName="surface-card h-full min-w-0 px-6 py-8 md:px-8">
               <SectionHeading
                 eyebrow="Nicholas Parks"
@@ -183,15 +183,34 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delayMs={120} className="min-w-0" contentClassName="ink-panel h-full min-w-0 rounded-[32px] px-6 py-8 md:px-8 md:py-10">
-              <div className="min-w-0">
-                <p className="section-eyebrow !text-white/70">Mindset</p>
-                <p className="mt-4 max-w-[13ch] font-heading text-[1.65rem] uppercase leading-[0.98] tracking-[-0.035em] text-white md:max-w-none md:text-[2.3rem]">
-                  {homepageQuote}
-                </p>
-                <HomepageQuoteVideoSpotlight />
-              </div>
-            </ScrollReveal>
+            <div className="grid gap-4">
+              <ScrollReveal
+                delayMs={120}
+                className="min-w-0"
+                contentClassName="ink-panel h-full min-w-0 rounded-[32px] px-6 py-8 md:px-8 md:py-10"
+              >
+                <div className="min-w-0">
+                  <p className="section-eyebrow !text-white/70">Mindset</p>
+                  <p className="mt-4 max-w-[13ch] font-heading text-[1.65rem] uppercase leading-[0.98] tracking-[-0.035em] text-white md:max-w-none md:text-[2.3rem]">
+                    {homepageQuote}
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delayMs={180} className="min-w-0">
+                <div className="surface-card min-w-0 px-4 py-4 md:px-5 md:py-5">
+                  <div className="mb-4 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="section-eyebrow">Featured video</p>
+                      <p className="mt-3 max-w-2xl text-sm leading-6 text-muted md:text-base md:leading-7">
+                        A cleaner look at the SlamBall clip, separated from the quote so the mobile layout has more room to breathe.
+                      </p>
+                    </div>
+                  </div>
+                  <HomepageQuoteVideoSpotlight />
+                </div>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
@@ -314,5 +333,4 @@ export default function HomePage() {
     </>
   );
 }
-
 

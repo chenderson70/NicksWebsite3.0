@@ -38,7 +38,7 @@ export default function HomepageQuoteVideoSpotlight() {
 
   return (
     <>
-      <div className="mt-4 min-w-0 w-full overflow-hidden rounded-[28px] border border-white/12 bg-white/6 shadow-card">
+      <div className="min-w-0 w-full overflow-hidden rounded-[28px] border border-black/8 bg-white shadow-card">
         <div className="group relative aspect-[16/9] overflow-hidden rounded-[28px] bg-[#09100d]">
           <video
             src={videoSrc}
@@ -52,30 +52,30 @@ export default function HomepageQuoteVideoSpotlight() {
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#101311]/88 via-[#101311]/18 to-[#101311]/14" />
 
-          <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 px-5 pt-5 md:px-6 md:pt-6">
+          <div className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 px-4 pt-4 sm:px-5 sm:pt-5 md:px-6 md:pt-6">
             <div className="rounded-full border border-white/18 bg-white/10 px-3 py-1.5 backdrop-blur">
               <p className="font-heading text-xs uppercase tracking-[0.26em] text-white/86">
                 Featured clip
               </p>
             </div>
-            <div className="rounded-full border border-white/22 bg-[#101311]/54 px-3 py-1.5 backdrop-blur">
+            <div className="hidden rounded-full border border-white/22 bg-[#101311]/54 px-3 py-1.5 backdrop-blur sm:block">
               <p className="font-heading text-xs uppercase tracking-[0.22em] text-white">
                 Click to expand
               </p>
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 px-5 pb-5 pt-20 md:px-6 md:pb-6">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 px-4 pb-4 pt-12 sm:px-5 sm:pb-5 sm:pt-20 md:px-6 md:pb-6">
             <div className="max-w-3xl">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/18 bg-white/12 shadow-card backdrop-blur transition-transform duration-300 group-hover:scale-105">
-                <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/18 bg-white/12 shadow-card backdrop-blur transition-transform duration-300 group-hover:scale-105 sm:h-16 sm:w-16">
+                <svg className="h-5 w-5 text-white sm:h-6 sm:w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8 6.5v11l9-5.5-9-5.5Z" />
                 </svg>
               </div>
-              <p className="mt-5 max-w-3xl font-heading text-xl uppercase tracking-[-0.03em] text-white md:text-[2rem]">
+              <p className="mt-4 hidden max-w-3xl font-heading text-xl uppercase tracking-[-0.03em] text-white sm:block md:mt-5 md:text-[2rem]">
                 The question should never be how long will it take, but rather what will it take.
               </p>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-white/88 md:text-base">
+              <p className="mt-2 hidden max-w-2xl text-sm leading-7 text-white/88 sm:block md:mt-3 md:text-base">
                 See the featured SlamBall clip in the same expanded format used on the Mission page.
               </p>
             </div>
@@ -126,7 +126,7 @@ export default function HomepageQuoteVideoSpotlight() {
                       <p className="font-heading text-xs uppercase tracking-[0.26em] text-white/72">
                         Featured clip
                       </p>
-                      <p className="mt-2 max-w-2xl text-base leading-7 text-white md:text-lg">
+                      <p className="mt-2 max-w-2xl text-sm leading-6 text-white md:text-lg md:leading-7">
                         A larger view of the homepage highlight in the same expanded treatment used on the Mission page.
                       </p>
                     </div>
