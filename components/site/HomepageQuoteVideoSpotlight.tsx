@@ -7,10 +7,26 @@ import { publicAsset } from "@/lib/utils";
 const posterSrc = publicAsset("/images/EspnThumbnail.JPG");
 const videoSrc = publicAsset("/images/homepageclip.mov");
 
+type FullscreenCapableVideo = HTMLVideoElement & {
+  webkitEnterFullscreen?: () => void;
+  webkitEnterFullScreen?: () => void;
+};
+
 export default function HomepageQuoteVideoSpotlight() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const expandedShellRef = useRef<HTMLDivElement | null>(null);
   const expandedVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const closeExpandedVideo = () => {
+    if (document.fullscreenElement) {
+      void document.exitFullscreen().catch(() => {
+        // If the browser blocks programmatic exit, the overlay still closes below.
+      });
+    }
+
+    setIsExpanded(false);
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -24,16 +40,37 @@ export default function HomepageQuoteVideoSpotlight() {
     const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        closeExpandedVideo();
+      }
+    };
+
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
         setIsExpanded(false);
       }
     };
 
+    const expandedVideo = expandedVideoRef.current;
+    const handleLegacyFullscreenExit = () => {
+      setIsExpanded(false);
+    };
+
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    expandedVideo?.addEventListener(
+      "webkitendfullscreen",
+      handleLegacyFullscreenExit as EventListener
+    );
 
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      expandedVideo?.removeEventListener(
+        "webkitendfullscreen",
+        handleLegacyFullscreenExit as EventListener
+      );
     };
   }, [isExpanded]);
 
@@ -42,13 +79,46 @@ export default function HomepageQuoteVideoSpotlight() {
       return;
     }
 
-    const playback = expandedVideoRef.current.play();
+    const expandedVideo = expandedVideoRef.current;
+    const playback = expandedVideo.play();
 
     if (playback && typeof playback.catch === "function") {
       playback.catch(() => {
         // Native controls still allow a manual play if autoplay is blocked.
       });
     }
+
+    const attemptFullscreen = async () => {
+      try {
+        if (expandedShellRef.current?.requestFullscreen && !document.fullscreenElement) {
+          await expandedShellRef.current.requestFullscreen();
+          return;
+        }
+      } catch {
+        // The overlay already fills the viewport, so a failed fullscreen request is safe to ignore.
+      }
+
+      const legacyVideo = expandedVideo as FullscreenCapableVideo;
+
+      if (typeof legacyVideo.webkitEnterFullscreen === "function") {
+        try {
+          legacyVideo.webkitEnterFullscreen();
+          return;
+        } catch {
+          // Fall through to the older Safari variant if needed.
+        }
+      }
+
+      if (typeof legacyVideo.webkitEnterFullScreen === "function") {
+        try {
+          legacyVideo.webkitEnterFullScreen();
+        } catch {
+          // The viewport-sized overlay remains as the fallback experience.
+        }
+      }
+    };
+
+    void attemptFullscreen();
   }, [isExpanded]);
 
   return (
@@ -109,16 +179,23 @@ export default function HomepageQuoteVideoSpotlight() {
         ? createPortal(
             <div
               className="fixed inset-0 z-[80] bg-black/94 backdrop-blur-md"
-              onClick={() => setIsExpanded(false)}
+              onClick={closeExpandedVideo}
             >
               <div
+                ref={expandedShellRef}
                 className="relative h-full w-full"
                 onClick={(event) => event.stopPropagation()}
+                style={{
+                  paddingTop: "max(env(safe-area-inset-top, 0px), 0.75rem)",
+                  paddingRight: "max(env(safe-area-inset-right, 0px), 0.75rem)",
+                  paddingBottom: "max(env(safe-area-inset-bottom, 0px), 0.75rem)",
+                  paddingLeft: "max(env(safe-area-inset-left, 0px), 0.75rem)",
+                }}
               >
                 <button
                   type="button"
-                  onClick={() => setIsExpanded(false)}
-                  className="absolute right-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-[#101311]/76 text-white shadow-card backdrop-blur md:right-6 md:top-6"
+                  onClick={closeExpandedVideo}
+                  className="absolute right-3 top-3 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/16 bg-[#101311]/68 text-white shadow-card backdrop-blur transition hover:bg-[#101311]/82 md:right-5 md:top-5"
                   aria-label="Close homepage highlight video"
                 >
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,17 +203,19 @@ export default function HomepageQuoteVideoSpotlight() {
                   </svg>
                 </button>
 
-                <video
-                  ref={expandedVideoRef}
-                  src={videoSrc}
-                  controls
-                  autoPlay
-                  muted
-                  playsInline
-                  preload="auto"
-                  poster={posterSrc}
-                  className="h-full w-full bg-black object-contain"
-                />
+                <div className="flex h-full w-full items-center justify-center">
+                  <video
+                    ref={expandedVideoRef}
+                    src={videoSrc}
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    poster={posterSrc}
+                    className="max-h-full w-full rounded-[24px] bg-black object-contain shadow-[0_32px_120px_-56px_rgba(0,0,0,0.9)] sm:max-w-[min(100%,1600px)]"
+                  />
+                </div>
               </div>
             </div>,
             document.body
