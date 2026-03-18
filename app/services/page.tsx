@@ -287,8 +287,8 @@ export default function ServicesPage() {
           <div className="max-w-3xl">
             <p className="section-eyebrow">Loneless Wolf services for athletes, leaders, and organizations</p>
             <h1 className="mt-6 font-heading text-5xl uppercase tracking-[-0.06em] text-foreground md:text-7xl">
-              What Nick offers.
-              <span className="block text-primary">Built for real rooms, real pressure, and real growth.</span>
+              You don't have to carry pressure alone.
+              <span className="block text-primary">Thoughtfully built for real challenges, meaningful growth, and moments that ask more of you.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-muted md:text-xl">
               Keynote speaking, mental performance coaching, culture workshops, and mentorship tailored to

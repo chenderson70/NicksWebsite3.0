@@ -199,7 +199,7 @@ export default function MissionPage() {
               <p className="section-eyebrow">Mission</p>
               <h1 className="mt-6 font-heading text-5xl uppercase tracking-[-0.06em] text-foreground md:text-7xl">
                 You are not alone.
-                <span className="block text-primary">The mission is to prepare people for pressure.</span>
+                <span className="block text-primary">The mission is to help people face pressure feeling prepared, grounded, and supported.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-muted md:text-xl">
                 Loneless Wolf stands for working optimists leaning on faith. The work
