@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { publicAsset } from "@/lib/utils";
 
 const posterSrc = publicAsset("/images/EspnThumbnail.JPG");
-const videoSrc = publicAsset("/images/homepageclip.mov");
+const videoSrc = publicAsset("/images/homepageclip.mp4");
 
 type FullscreenCapableVideo = HTMLVideoElement & {
   webkitEnterFullscreen?: () => void;
@@ -15,8 +15,14 @@ type FullscreenCapableVideo = HTMLVideoElement & {
 export default function HomepageQuoteVideoSpotlight() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [hasEnded, setHasEnded] = useState(false);
   const expandedShellRef = useRef<HTMLDivElement | null>(null);
   const expandedVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const openExpandedVideo = () => {
+    setHasEnded(false);
+    setIsExpanded(true);
+  };
 
   const closeExpandedVideo = () => {
     if (document.fullscreenElement) {
@@ -25,7 +31,22 @@ export default function HomepageQuoteVideoSpotlight() {
       });
     }
 
+    setHasEnded(false);
     setIsExpanded(false);
+  };
+
+  const replayExpandedVideo = () => {
+    const video = expandedVideoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    setHasEnded(false);
+    video.currentTime = 0;
+    void video.play().catch(() => {
+      // Native controls remain available if the browser requires another tap.
+    });
   };
 
   useEffect(() => {
@@ -168,9 +189,9 @@ export default function HomepageQuoteVideoSpotlight() {
 
           <button
             type="button"
-            onClick={() => setIsExpanded(true)}
+            onClick={openExpandedVideo}
             className="absolute inset-0 z-10 cursor-zoom-in rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80"
-            aria-label="Open homepage highlight video in an expanded view"
+            aria-label="Play homepage highlight video fullscreen"
           />
         </div>
       </div>
@@ -195,15 +216,22 @@ export default function HomepageQuoteVideoSpotlight() {
                 <button
                   type="button"
                   onClick={closeExpandedVideo}
-                  className="absolute right-3 top-3 z-10 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/16 bg-[#101311]/68 text-white shadow-card backdrop-blur transition hover:bg-[#101311]/82 md:right-5 md:top-5"
-                  aria-label="Close homepage highlight video"
+                  className="absolute z-30 inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/18 bg-[#101311]/82 px-4 text-white shadow-card backdrop-blur transition hover:bg-[#101311] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80"
+                  style={{
+                    right: "max(env(safe-area-inset-right, 0px), 0.75rem)",
+                    top: "max(env(safe-area-inset-top, 0px), 0.75rem)",
+                  }}
+                  aria-label="Close video and return to the homepage"
                 >
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 18 18 6M6 6l12 12" />
                   </svg>
+                  <span className="font-heading text-xs uppercase tracking-[0.18em]">
+                    Back to page
+                  </span>
                 </button>
 
-                <div className="flex h-full w-full items-center justify-center">
+                <div className="relative flex h-full w-full items-center justify-center">
                   <video
                     ref={expandedVideoRef}
                     src={videoSrc}
@@ -213,8 +241,39 @@ export default function HomepageQuoteVideoSpotlight() {
                     playsInline
                     preload="auto"
                     poster={posterSrc}
+                    onPlay={() => setHasEnded(false)}
+                    onEnded={() => setHasEnded(true)}
                     className="max-h-full w-full rounded-[24px] bg-black object-contain shadow-[0_32px_120px_-56px_rgba(0,0,0,0.9)] sm:max-w-[min(100%,1600px)]"
                   />
+
+                  {hasEnded ? (
+                    <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[24px] bg-black/78 px-6 text-center backdrop-blur-sm">
+                      <div className="max-w-lg">
+                        <p className="font-heading text-xs uppercase tracking-[0.28em] text-white/68">
+                          ESPN Featured Dunk
+                        </p>
+                        <h2 className="mt-4 font-heading text-3xl uppercase tracking-[-0.04em] text-white sm:text-5xl">
+                          Watch it again?
+                        </h2>
+                        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+                          <button
+                            type="button"
+                            onClick={replayExpandedVideo}
+                            className="inline-flex min-h-14 items-center justify-center rounded-full bg-primary px-7 font-heading text-sm uppercase tracking-[0.2em] text-white transition hover:bg-primary/86 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80"
+                          >
+                            Replay
+                          </button>
+                          <button
+                            type="button"
+                            onClick={closeExpandedVideo}
+                            className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/22 bg-white/10 px-7 font-heading text-sm uppercase tracking-[0.2em] text-white backdrop-blur transition hover:bg-white hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/80"
+                          >
+                            Back to page
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>,
